@@ -1,67 +1,132 @@
-import { useState } from 'react'
+import { useState } from "react";
 import logo from "../assets/photos/logo.png"
+import {Link} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+// import logo from "../assets/photos/logo.png"; // Oyaage logo path eka hariyata thiyaganna
 
 export default function Header() {
+  const navigate = useNavigate();
 
-    const [open, setOpen] = useState(false)
-    
+  const [menuOpen, setMenuOpen] = useState(false);
 
-    
+  const menuItems = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/About" },
+    { name: "Rooms", path: "/Rooms" },
+    { name: "Gallery", path: "/gallery" },
+    { name: "Contact", path: "/contact" },
+  ];
+
+
   return (
-    <header className="flex items-center justify-between px-6 py-3 md:py-4 shadow max-w-7xl rounded-full mx-auto w-full bg-white">
-    <a href="https://prebuiltui.com">
-        <div className='justify-between flex items-center ml-15 '>
-            <img src={logo} alt='logo' className='w-10 h-auto scale-350' />
-            {/* <h2 className='ml-5'>Rain Forest</h2> */}
+    // Updated: Background eka Dark Green/Forest theme ekata haduwa
+    <nav className=" absolute top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between w-[92%] md:w-full px-5 md:px-16 py-4 max-w-7xl mx-auto rounded-full
+      bg-white/15 backdrop-blur-xl border border-white/20 shadow-2xl">
+
+      {/* LOGO */}
+      <a href="/" className="flex items-center gap-2 group ">
+        <div className=" p-2  transition-colors group-hover:bg-cyan-300 ">
+            {/* Logo placeholder - replace with your <img> tag */ <img src={logo} className="w-10 h-auto scale-250"></img>}
+            {/* <div className="w-8 h-8 bg-emerald-500 rounded-full blur-[2px] animate-pulse"></div> */}
         </div>
-        
-    </a>
-    <nav id="menu" 
-        className={`
-            max-md:absolute max-md:top-0 max-md:left-0 
-            max-md:overflow-hidden items-center 
-            justify-center max-md:h-full max-md:w-0
-            transition-[width] bg-white/50 backdrop-blur 
-            flex-col md:flex-row flex gap-8 text-gray-900 
-            text-lg font-stretch-50%  
-            ${open? "max-md:w-full":"max-md:w-0"}
-            `}>
-        <a className="hover:text-indigo-600" href="#">
-            Products
-        </a>
-        <a className="hover:text-indigo-600" href="#">
-            Customer Stories
-        </a>
-        <a className="hover:text-indigo-600" href="#">
-            Pricing
-        </a>
-        <a className="hover:text-indigo-600" href="#">
-            Docs
-        </a>
-        <button onClick={()=>{setOpen(false)}} id="closeMenu" className="md:hidden absolute top-4 right-4 text-gray-700 z-50">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 18L18 6M6 6l12 12" />
-            </svg>
+        <span className="hidden sm:block text-white font-semibold tracking-widest uppercase text-sm italic">
+          Rainforest Royal <br></br> Heritage Cabin
+        </span>
+      </a>
+
+      {/* DESKTOP MENU - Updated hover colors to Green tones */}
+      <div className="hidden md:flex items-center gap-10 text-white/90 font-bold text-lg tracking-wide">
+        {menuItems.map((item) => (
+          <Link
+            key={item.name}  
+            to={item.path}
+            className="relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0
+              after:bg-emerald-400 after:transition-all after:duration-300
+              hover:after:w-full hover:text-emerald-300 transition-colors"
+          >
+            {item.name}
+          </Link>
+        ))}
+      </div>
+
+      {/* DESKTOP BUTTONS - Updated button styles */}
+      <div className="hidden md:flex items-center gap-6">
+        <button className="text-white/80  hover:text-white transition font-bold text-lg" 
+          onClick={() => navigate("/LogIn")}
+        >
+          Login
         </button>
+
+        <button className="px-7 py-2.5 rounded-full bg-emerald-600 text-white text-sm font-bold
+          hover:bg-emerald-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all active:scale-95">
+          Book Now
+        </button>
+      </div>
+
+      {/* MOBILE MENU BUTTON */}
+      <button
+        className="md:hidden text-white p-2"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        {menuOpen ? (
+          <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <path d="M18 6 6 18M6 6l12 12" />
+          </svg>
+        ) : (
+          <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <path d="M3 6h18M3 12h18M3 18h18" />
+          </svg>
+        )}
+      </button>
+
+      {/* MOBILE MENU - Updated with Forest gradients */}
+      <div
+        className={`fixed inset-0 z-50 md:hidden transition-all duration-500
+        ${menuOpen ? "bg-black backdrop-blur-xl opacity-100 visible" : "opacity-0 invisible"}`}
+        onClick={() => setMenuOpen(false)}
+      >
+        <div
+          className={`absolute top-0 right-0 h-full w-4/5 max-w-sm
+            bg-black
+            p-8 shadow-2xl transition-transform duration-500 ease-out
+            ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* MOBILE HEADER */}
+          <div className="flex justify-between items-center mb-12 bg-black">
+            <span className="bg-black text-white font-bold tracking-widest uppercase">Rainforest</span>
+            <button onClick={() => setMenuOpen(false)} className="text-white/60 hover:text-white">
+              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M18 6 6 18M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          {/* LINKS */}
+          <div className="flex flex-col gap-4 text-white">
+            {["Home", "Rooms", "Amenities", "Gallery", "Contact"].map((item) => (
+              <a
+                key={item}
+                href="#"
+                className="py-4 px-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-emerald-600/20 transition-all text-lg font-light"
+                onClick={() => setMenuOpen(false)}
+              >
+                {item}
+              </a>
+            ))}
+          </div>
+
+          {/* BUTTONS */}
+          <div className="mt-12 flex flex-col gap-4 bg-black">
+            <button className="py-4 bg-emerald-600 text-white font-bold rounded-2xl hover:bg-emerald-500 transition shadow-lg shadow-emerald-900/20">
+              Book Now
+            </button>
+            <button className="py-4 border border-white/20 rounded-2xl text-white/70 hover:bg-white/5 transition">
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
     </nav>
-    <div className="flex items-center space-x-4">
-        {/* <button className="size-8 flex items-center justify-center hover:bg-gray-100 transition border border-slate-300 rounded-md">
-            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.5 10.39a2.889 2.889 0 1 0 0-5.779 2.889 2.889 0 0 0 0 5.778M7.5 1v.722m0 11.556V14M1 7.5h.722m11.556 0h.723m-1.904-4.596-.511.51m-8.172 8.171-.51.511m-.001-9.192.51.51m8.173 8.171.51.511"
-                    stroke="#353535" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-        </button> */}
-        <a className=" md:flex bg-indigo-600 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-indigo-700 transition" href="#">
-            Sign up
-        </a>
-        <button onClick={()=>{setOpen(true)}} id="openMenu" className="md:hidden text-gray-600">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-        </button>
-    </div>
-</header>
-  )
+  );
 }
