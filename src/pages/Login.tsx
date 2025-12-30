@@ -1,5 +1,5 @@
 import React, { useState, useEffect, type FormEvent } from 'react';
-import {login, register} from "../services/auth"
+import {login, register, sendOTP, verifyOTP} from "../services/auth"
 import { useNavigate } from 'react-router-dom';
 
 const AuthPage = () => {
@@ -13,6 +13,9 @@ const AuthPage = () => {
     setTimeout(() => setIsLoaded(true), 200);
   }, []);
 
+  const [signUpStep, setSignUpStep] = useState(1);
+
+
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -25,7 +28,67 @@ const AuthPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("")
   const [role, setRole] = useState("USER")
 
-  
+  const DEMO_OTP = "123456";
+
+  const validateEmail = (email: string) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return regex.test(email);
+  };
+
+
+  const handleStep1Next = async () => {
+    if (!firstName || !lastName || !registerEmail) {
+      alert("Please fill all fields");
+      return;
+    }
+    
+    
+    if(!validateEmail(registerEmail)){
+      alert("Please enter valid email");
+      return;
+    }
+    try {
+      const res = await sendOTP(registerEmail)
+
+      if(res.status === 201){
+        
+        alert("OTP sent to your email!");
+        setSignUpStep(2); 
+      }else{
+          alert("Failed to send OTP");
+          
+      }
+    } catch (err: any) {
+        alert("Fail OTP Send")
+    }
+  };
+
+  const handleOTPVerify = async () => {
+
+      if(!OTP){
+        alert("Please fill OTP field");
+        return 
+      }
+
+      try {
+
+        const res = await verifyOTP(registerEmail,OTP)
+
+        if (res.isValid) {
+          alert("Valid OTP");
+          setSignUpStep(3);
+          return;
+        }else{
+          alert("INvalid OTP");
+        }
+      } catch (error) {
+        console.log("sever error")
+      }
+    
+      
+    
+  };
+
   const handelSignIn = async ()=>{
     console.log(email)
     console.log(password)
@@ -34,6 +97,7 @@ const AuthPage = () => {
       alert("All fields are re...")
       return
     }
+   
 
     // try{
       // const res = await login(email, password)
@@ -60,11 +124,14 @@ const AuthPage = () => {
   const handelRegister = async (e: FormEvent) => {
 
     console.log("aaaaaa")
-    if(!firstName || !lastName || !registerEmail || !OTP || !registerPassword || !confirmPassword){
+    if (!confirmPassword || !registerPassword ){
       alert("All fields are re...")
       return
     }
-
+    if (confirmPassword !== registerPassword ){
+      alert("Password is unequal")
+      return
+    }
     const user = {
       firstName,
       lastName,
@@ -78,7 +145,10 @@ const AuthPage = () => {
 
       console.log(res.data)
       console.log(res.message)
-
+      if(res.data.id){
+        alert("User Register Successfully")
+        return
+      }
     }catch(err: any){
       console.error(err?.response?.data)
     }
@@ -137,43 +207,114 @@ const AuthPage = () => {
           
           {/* Sign Up Form */}
           <div className={`w-full max-w-xl p-8 transition-all duration-700 delay-500
-            ${!isSignIn ? 'scale-100 opacity-100' : 'scale-0 opacity-0 absolute pointer-events-none'}`}>
-            <div className="bg-white p-8 rounded-3xl shadow-[0_5px_15px_rgba(0,0,0,0.3)]">
-              <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Sign Up</h2>
-              <input type="text" placeholder="First Name" className="w-full p-3 mb-6 bg-gray-100 rounded-lg outline-none border-2 border-transparent focus:border-[#4EA685] transition" 
-                value={firstName}
-                onChange={(e)=> setFistName(e.target.value)}
-              />
-              <input type="text" placeholder="Last Name" className="w-full p-3 mb-6 bg-gray-100 rounded-lg outline-none border-2 border-transparent focus:border-[#4EA685] transition" 
-                value={lastName}
-                onChange={(e)=> setLastName(e.target.value)}
-              />
-              <input type="email" placeholder="Email" className="w-full p-3 mb-6 bg-gray-100 rounded-lg outline-none border-2 border-transparent focus:border-[#4EA685] transition" 
-                value={registerEmail}
-                onChange={(e)=> setRegisterEmail(e.target.value)}
-              />
-              <input type="number" placeholder="OTP" className="w-full p-3 mb-6 bg-gray-100 rounded-lg outline-none border-2 border-transparent focus:border-[#4EA685] transition" 
-                value={OTP}
-                onChange={(e)=> setOTP(e.target.value)}
-              />
-              <input type="password" placeholder="Password" className="w-full p-3 mb-6 bg-gray-100 rounded-lg outline-none border-2 border-transparent focus:border-[#4EA685] transition" 
-                value={registerPassword}
-                onChange={(e)=> setRegisterPassword(e.target.value)}
-              />
-              <input type="password" placeholder="Confirm Password" className="w-full p-3 mb-6 bg-gray-100 rounded-lg outline-none border-2 border-transparent focus:border-[#4EA685] transition" 
-                value={confirmPassword}
-                onChange={(e)=> setConfirmPassword(e.target.value)}
-              />
-              <button className="w-full bg-[#4EA685] text-white py-3 rounded-lg font-bold hover:bg-[#3d8b6e] transition duration-300"
-                onClick={handelRegister}
-              >
-                Sign Up
-              </button>
-              <p className="mt-4 text-xs text-center text-gray-500">
-                Already have an account? <span onClick={() => setIsSignIn(true)} className="cursor-pointer text-[#4EA685] font-bold">Sign in here</span>
-              </p>
-            </div>
-          </div>
+  ${!isSignIn ? 'scale-100 opacity-100' : 'scale-0 opacity-0 absolute pointer-events-none'}`}>
+
+  <div className="bg-white p-8 rounded-3xl shadow-[0_5px_15px_rgba(0,0,0,0.3)]">
+
+    <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
+      Sign Up
+    </h2>
+
+    {/* STEP 1 */}
+    {signUpStep === 1 && (
+      <>
+        <input
+          type="text"
+          placeholder="First Name"
+          className="w-full p-3 mb-4 bg-gray-100 rounded-lg outline-none focus:border-[#4EA685] border-2 border-transparent"
+          value={firstName}
+          onChange={(e) => setFistName(e.target.value)}
+        />
+
+        <input
+          type="text"
+          placeholder="Last Name"
+          className="w-full p-3 mb-4 bg-gray-100 rounded-lg outline-none focus:border-[#4EA685] border-2 border-transparent"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+
+        <input
+          type="email"
+          placeholder="Email"
+          className="w-full p-3 mb-6 bg-gray-100 rounded-lg outline-none focus:border-[#4EA685] border-2 border-transparent"
+          value={registerEmail}
+          onChange={(e) => setRegisterEmail(e.target.value)}
+        />
+
+        <button
+          className="w-full bg-[#4EA685] text-white py-3 rounded-lg font-bold hover:bg-[#3d8b6e]"
+          onClick={handleStep1Next}
+        >
+          Next
+        </button>
+      </>
+    )}
+
+    {/* STEP 2 */}
+    {signUpStep === 2 && (
+      <>
+        <input
+          type="number"
+          placeholder="Enter OTP"
+          className="w-full p-3 mb-6 bg-gray-100 rounded-lg outline-none focus:border-[#4EA685] border-2 border-transparent"
+          value={OTP}
+          onChange={(e) => setOTP(e.target.value)}
+        />
+
+        <button
+          className="w-full bg-[#4EA685] text-white py-3 rounded-lg font-bold hover:bg-[#3d8b6e]"
+          onClick={handleOTPVerify}
+        >
+          Verify OTP
+        </button>
+      </>
+    )}
+
+    {/* STEP 3 */}
+    {signUpStep === 3 && (
+      <>
+        <input
+          type="password"
+          placeholder="Password"
+          className="w-full p-3 mb-4 bg-gray-100 rounded-lg outline-none focus:border-[#4EA685] border-2 border-transparent"
+          value={registerPassword}
+          onChange={(e) => setRegisterPassword(e.target.value)}
+        />
+
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          className="w-full p-3 mb-6 bg-gray-100 rounded-lg outline-none focus:border-[#4EA685] border-2 border-transparent"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+
+        <button
+          className="w-full bg-[#4EA685] text-white py-3 rounded-lg font-bold hover:bg-[#3d8b6e]"
+          onClick={handelRegister}
+        >
+          Sign Up
+        </button>
+      </>
+    )}
+
+    <p className="mt-4 text-xs text-center text-gray-500">
+      Already have an account?{" "}
+      <span
+        onClick={() => {
+          setIsSignIn(true);
+          setSignUpStep(1);
+        }}
+        className="cursor-pointer text-[#4EA685] font-bold"
+      >
+        Sign in here
+      </span>
+    </p>
+
+  </div>
+</div>
+
 
           {/* Join Us Text (For Sign In Mode) */}
           <div className={`hidden md:block text-[#515352] text-center transition-all duration-1000

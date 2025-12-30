@@ -1,3 +1,4 @@
+import { data } from "react-router-dom"
 import api from "./api"
 
 type RegisterDataType = {
@@ -15,5 +16,15 @@ export const register = async (data: RegisterDataType)=>{
 
 export const login = async (email: string, password: string)=>{
 
+}
+
+export const sendOTP = async (registerEmail: string) =>{
+    const res = await api.post("/auth/sendOTP",{registerEmail})
+    return res.data
+}
+
+export const verifyOTP = async (registerEmail: string, otp: string) =>{
+    const res = await api.post("/auth/verifyOTP",{email:registerEmail, otp})
+    return res.data
 }
 
