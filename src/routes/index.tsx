@@ -1,6 +1,9 @@
 import { lazy, Suspense, use, type ReactNode } from "react";
 import { useAuth } from "../context/authContext";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import About from "../pages/About";
+import ContactUs from "../pages/ContactUs";
+import Login from "../pages/Login";
 
 const Home = lazy(() => import("../pages/Home"))
 const Welcome = lazy(() => import("../pages/Welcome"))
@@ -44,9 +47,12 @@ export default function Router() {
                 </div>
             }>
             
-            <Routes>
+            <Routes >
                 <Route path="/" element={<Welcome/>} />
                 <Route path="/Home" element={<Home/>} />
+                <Route path="/About" element={<About/>}/>
+                <Route path="/Contact" element={<ContactUs/>}/>
+                <Route path="/LogIn" element={<Login/>}/>
             </Routes>
             </Suspense>
         </BrowserRouter>
