@@ -15,16 +15,18 @@ export const register = async (data: RegisterDataType)=>{
 }
 
 export const login = async (email: string, password: string)=>{
+    const res = await api.post("auth/logIn", {email, password})
+    return res.data
 
 }
 
 export const sendOTP = async (registerEmail: string) =>{
-    const res = await api.post("/auth/sendOTP",{registerEmail})
+    const res = await api.post("/auth/sendOTP", {registerEmail})
     return res.data
 }
 
 export const verifyOTP = async (registerEmail: string, otp: string) =>{
-    const res = await api.post("/auth/verifyOTP",{email:registerEmail, otp})
+    const res = await api.post("/auth/verifyOTP", {email:registerEmail, otp})
     return res.data
 }
 

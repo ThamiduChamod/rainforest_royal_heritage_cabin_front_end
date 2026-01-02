@@ -99,27 +99,28 @@ const AuthPage = () => {
     }
    
 
-    // try{
-      // const res = await login(email, password)
+    try{
+      const res = await login(email, password)
 
-      // console.log(res.data.accessToken)
+      console.log(res.data.accessToken)
 
-      // if(!res.data.accessToken){
-        // alert("Login fail")
+      if(!res.data.accessToken){
+        alert("Login fail")
         return
-      // }
+      }
 
-      // await localStorage.setItem("accessToken", res.data.accessToken)
-      // await localStorage.setItem("accessToken", res.data.refreshToken)
+      await localStorage.setItem("accessToken", res.data.accessToken)
+      await localStorage.setItem("refreshToken", res.data.refreshToken)
+
+      alert("Login Successfully")
       
-      // navigate("/Home")
+      navigate("/")
 
-    // }catch(err){
-      // console.error(err)
-    // }
+    }catch(err){
+      console.error(err)
+    }
 
   }
-
 
   const handelRegister = async (e: FormEvent) => {
 
