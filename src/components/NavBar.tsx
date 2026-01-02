@@ -58,7 +58,9 @@ export default function Header() {
         </button>
 
         <button className="px-7 py-2.5 rounded-full bg-emerald-600 text-white text-sm font-bold
-          hover:bg-emerald-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all active:scale-95">
+          hover:bg-emerald-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all active:scale-95"
+          onClick={() => navigate("/Dashboard")}  
+        >
           Book Now
         </button>
       </div>
