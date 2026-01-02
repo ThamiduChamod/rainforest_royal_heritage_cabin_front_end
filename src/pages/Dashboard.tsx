@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PageHeroSection from '../components/PageHeroSection'
 import heroimg from "../assets/photos/image2.jpeg"
-import { BedDouble, CheckCircle, ChevronRight, Gift, LayoutDashboard, PlusCircle, Settings, Users, type LucideIcon } from 'lucide-react'
+import { BedDouble, CheckCircle, ChevronRight, Gift, LayoutDashboard, PersonStanding, Settings, Users, type LucideIcon } from 'lucide-react'
 import RoomCard from '../components/RoomCard';
 import PackageCard from '../components/PackageCard';
 import AdminPanel from '../components/AdminPanel';
@@ -10,6 +10,7 @@ import AddPackage from '../components/AddPackage';
 import AddRoom from '../components/Modal';
 import Modal from '../components/Modal';
 import AddRooms from '../components/AddRooms';
+import Profile from '../components/Profile';
 
 export default function Dashboard() {
     const [activeTab, setActiveTab] = useState("dashboard");
@@ -61,7 +62,8 @@ export default function Dashboard() {
             { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
             { id: "rooms", label: "Room Booking", icon: BedDouble },
             { id: "packages", label: "Package Booking", icon: Gift },
-            { id: "admin", label: "Admin Panel", icon: Settings },
+            { id: "author", label: "Author Panel", icon: Settings },
+            { id: "admin", label: "Admin Panel", icon: PersonStanding },
           ].map(item => (
             <button
               key={item.id}
@@ -125,8 +127,21 @@ export default function Dashboard() {
           )}
 
 
-          {activeTab === "admin" && (
-            <AdminPanel/>
+          {activeTab === "author" && (
+            // <div className='w-full h-full bg-[#4b5985]'>
+              <AdminPanel/>
+            // </div>
+          )}
+
+          {activeTab === "admin" &&(
+            // <div className='grid-cols-2 m-5'>
+              // <div className='w-100'>
+                <Profile/>
+              // </div>
+              // <div >
+
+              // {/* </div> */}
+            // </div>
           )}
            
     </div>
