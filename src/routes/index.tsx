@@ -4,6 +4,10 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import About from "../pages/About";
 import ContactUs from "../pages/ContactUs";
 import Login from "../pages/Login";
+import Gallery from "../pages/Gallery";
+import UserDashboard from "../pages/Userdashboard";
+import Dashboard from "../pages/Dashboard";
+import AdminDashboard from "../components/AdminDashboard";
 
 const Home = lazy(() => import("../pages/Home"))
 const Welcome = lazy(() => import("../pages/Welcome"))
@@ -53,6 +57,9 @@ export default function Router() {
                 <Route path="/About" element={<About/>}/>
                 <Route path="/Contact" element={<ContactUs/>}/>
                 <Route path="/LogIn" element={<Login/>}/>
+                <Route path="/Gallery" element={<Gallery/>}/>
+                <Route path="/AdminDashboard" element={<AdminDashboard/>}/>
+                <Route path="/Dashboard" element={<Dashboard/>}/>
             </Routes>
             </Suspense>
         </BrowserRouter>
