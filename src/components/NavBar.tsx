@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../assets/photos/logo.png"
 import {Link} from "react-router-dom"
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,12 @@ export default function Header() {
   const navigate = useNavigate();
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("isLoggedIn");
+    setIsLoggedIn(loggedIn === "true");
+  }, []);
 
   const menuItems = [
     { name: "Home", path: "/" },
@@ -20,12 +26,12 @@ export default function Header() {
 
   return (
     // Updated: Background eka Dark Green/Forest theme ekata haduwa
-    <nav className=" absolute top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between w-[92%] md:w-full px-5 md:px-16 py-4 max-w-7xl mx-auto rounded-full
-      bg-white/15 backdrop-blur-xl border border-white/20 shadow-2xl">
+    <nav className=" absolute  left-1/2 -translate-x-1/2 z-50 flex items-center justify-between w-full md:w-full px-5 md:px-16 py-4 max-w-7xl mx-auto 
+        border-b-3 border-[#b6b6b6]">
 
       {/* LOGO */}
       <a href="/" className="flex items-center gap-2 group ">
-        <div className=" p-2  transition-colors group-hover:bg-cyan-300 ">
+        <div className=" p-2  transition-colors group-hover:bg-300 ">
             {/* Logo placeholder - replace with your <img> tag */ <img src={logo} className="w-10 h-auto scale-250"></img>}
             {/* <div className="w-8 h-8 bg-emerald-500 rounded-full blur-[2px] animate-pulse"></div> */}
         </div>
@@ -51,11 +57,15 @@ export default function Header() {
 
       {/* DESKTOP BUTTONS - Updated button styles */}
       <div className="hidden md:flex items-center gap-6">
-        <button className="text-white/80  hover:text-white transition font-bold text-lg" 
-          onClick={() => navigate("/LogIn")}
-        >
-          Login
-        </button>
+        {!isLoggedIn && (
+          <button
+            className="text-white/80 hover:text-white transition font-bold text-lg"
+            onClick={() => navigate("/LogIn")}
+          >
+            Login
+          </button>
+        )}
+
 
         <button className="px-7 py-2.5 rounded-full bg-emerald-600 text-white text-sm font-bold
           hover:bg-emerald-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all active:scale-95"
