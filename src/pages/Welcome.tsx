@@ -36,14 +36,16 @@ const Welcome = () => {
               key={index}
               src={img}
               alt={`Rainforest ${index}`}
-              className={`absolute inset-0 h-full w-full object-cover tranition-opacity duration-1000 ease-in-out trans${
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out ${
                 index === currentImage ? "opacity-100" : "opacity-0"
               }`}
             />
+
           ))}
           
           {/* Dark Overlay */}
-          <div className="absolute inset-0 bg-black/40 bg-gradient-to-b from-black/30 via-transparent to-black/60"></div>
+           {/* overlay (optional) */}
+        <div className="absolute inset-0 bg-black/50"></div>
         </div>
 
         {/* Header Container - Added absolute to stay on top */}
