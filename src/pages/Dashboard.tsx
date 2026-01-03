@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PageHeroSection from '../components/PageHeroSection'
 import heroimg from "../assets/photos/image2.jpeg"
 import { BedDouble, CheckCircle, ChevronRight, Gift, LayoutDashboard, PersonStanding, Settings, Users, type LucideIcon } from 'lucide-react'
@@ -15,6 +15,41 @@ import Profile from '../components/Profile';
 export default function Dashboard() {
     const [activeTab, setActiveTab] = useState("dashboard");
     
+    const [role, setRole] = useState("")
+
+  useEffect(() => {
+    const roles = localStorage.getItem("logInData");
+    if(roles){
+      setRole(roles);
+    }
+  }, []);
+
+   
+
+    type MenuItem = {
+      id: string;
+      label: string;
+      icon: LucideIcon;
+    };
+    const menuItems: MenuItem[] = [
+      { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+      { id: "rooms", label: "Room Booking", icon: BedDouble },
+      { id: "packages", label: "Package Booking", icon: Gift },
+    ];
+
+    if (role === "ADMIN") {
+      menuItems.push(
+        { id: "author", label: "Author Panel", icon: Settings },
+        { id: "admin", label: "Admin Panel", icon: PersonStanding }
+      );
+    }
+
+    if (role == "AUTHOR") {
+      menuItems.push(
+        { id: "admin", label: "Admin Panel", icon: PersonStanding }
+      )
+      
+    }
 
 
 
@@ -57,14 +92,8 @@ export default function Dashboard() {
       {/* dashboard navigation */}
       <aside className="h-10/12  bg-slate-900 text-white p-6 hidden lg:flex flex-col">
         
-        <nav className="flex  justify-between">
-          {[
-            { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
-            { id: "rooms", label: "Room Booking", icon: BedDouble },
-            { id: "packages", label: "Package Booking", icon: Gift },
-            { id: "author", label: "Author Panel", icon: Settings },
-            { id: "admin", label: "Admin Panel", icon: PersonStanding },
-          ].map(item => (
+        <nav className="flex justify-between">
+          {menuItems.map(item => (
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
@@ -83,6 +112,7 @@ export default function Dashboard() {
             </button>
           ))}
         </nav>
+
 
       </aside>
 
