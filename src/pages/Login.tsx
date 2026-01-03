@@ -111,8 +111,11 @@ const AuthPage = () => {
 
       await localStorage.setItem("accessToken", res.data.accessToken)
       await localStorage.setItem("refreshToken", res.data.refreshToken)
+      await localStorage.setItem("logInData", res.data.roles)
 
       alert("Login Successfully")
+      localStorage.setItem("isLoggedIn", "true");
+
       
       navigate("/")
 
@@ -161,6 +164,7 @@ const AuthPage = () => {
 
   return (
     <div className="relative min-h-screen w-full bg-white overflow-hidden font-sans">
+      {/* <Header/> */}
       
       {/* --- Moving Background Layer --- */}
       <div 
