@@ -24,7 +24,7 @@ export default function AdminPanel() {
     }
 
     const roomsData = [
-    { id: 1, type: "Deluxe Ocean View", price: "12,500", status: "Available", pax: 2, bedType: "King Size", amenities: ["A/C", "WiFi"], image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=500" },
+    { id: 1,  type: "Deluxe Ocean View", price: "12,500", status: "Available", pax: 2, bedType: "King Size", amenities: ["A/C", "WiFi"], image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=500" },
     { id: 2, type: "Standard Double", price: "8,000", status: "Booked", pax: 2, bedType: "Double Bed", amenities: ["A/C"], image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=500" },
     { id: 1, type: "Deluxe Ocean View", price: "12,500", status: "Available", pax: 2, bedType: "King Size", amenities: ["A/C", "WiFi"], image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=500" },
   ];
