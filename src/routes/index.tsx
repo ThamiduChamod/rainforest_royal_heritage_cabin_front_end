@@ -1,22 +1,27 @@
-import { lazy, Suspense, use, type ReactNode } from "react";
+import { lazy, Suspense,  type ReactNode } from "react";
 import { useAuth } from "../context/authContext";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import About from "../pages/About";
 import ContactUs from "../pages/ContactUs";
-import Login from "../pages/Login";
 import Gallery from "../pages/Gallery";
-import UserDashboard from "../pages/Userdashboard";
-import Dashboard from "../pages/Dashboard";
-import AdminDashboard from "../components/AdminDashboard";
+// import About from "../components/AboutComponent";
+// import LogIn from "../pages/Login"
 
 const Home = lazy(() => import("../pages/Home"))
 const Welcome = lazy(() => import("../pages/Welcome"))
+const Dashboard = lazy(() => import("../pages/Dashboard"))
+const LogIn = lazy(() => import("../pages/Login"))
+const About = lazy(() => import("../pages/About"))
 
 type RequireAuthTypes = {children: ReactNode; roles?: string[]}
 
 const RequireAuth = ({children, roles}: RequireAuthTypes) => {
-    const {user,loading} = useAuth()
 
+    
+
+    const {user,loading} = useAuth()
+    console.log("USER:", user)
+    console.log("USER ROLES:", user?.roles)
+    
     if (loading){
         return (
             <div className="flex items-center justify-center h-screen bg-gray-100">
@@ -26,7 +31,7 @@ const RequireAuth = ({children, roles}: RequireAuthTypes) => {
     }
 
     if (!user) {
-        return <Navigate to = "/Home" replace />
+        return <Navigate to = "/LogIn" replace />
     }
 
     if (roles && !roles.some((role) => user.roles?.includes(role))){
@@ -56,10 +61,18 @@ export default function Router() {
                 <Route path="/Home" element={<Home/>} />
                 <Route path="/About" element={<About/>}/>
                 <Route path="/Contact" element={<ContactUs/>}/>
-                <Route path="/LogIn" element={<Login/>}/>
+                <Route path="/LogIn" element={<LogIn/>}/>
                 <Route path="/Gallery" element={<Gallery/>}/>
-                <Route path="/AdminDashboard" element={<AdminDashboard/>}/>
-                <Route path="/Dashboard" element={<Dashboard/>}/>
+
+                <Route
+              path="/Dashboard"
+              element={
+                <RequireAuth roles={["ADMIN", "AUTHOR" , "USER"]}>
+                  <Dashboard />
+                </RequireAuth>
+              }
+            />
+    
             </Routes>
             </Suspense>
         </BrowserRouter>
