@@ -1,4 +1,4 @@
-import { Calendar, Users } from "lucide-react";
+import { Calendar } from "lucide-react";
 
 type BookingTime = {
   checkIn: string;

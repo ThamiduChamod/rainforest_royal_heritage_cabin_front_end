@@ -46,7 +46,7 @@ export default function Header() {
           <Link
             key={item.name}  
             to={item.path}
-            className="relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0
+            className="relative after:absolute after:-bottom-1 after:left-0  after:w-0
               after:bg-emerald-400 after:transition-all after:duration-300
               hover:after:w-full hover:text-emerald-300 transition-colors"
           >

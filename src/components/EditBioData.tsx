@@ -1,25 +1,40 @@
 import { PenLine, Save } from "lucide-react";
 import React, { useState } from "react";
 import Field from "./Field"
+import { saveProfile } from "../services/profile";
 
 export default function EditBioData() {
   const [isEdit, setIsEdit] = useState(false);
 
   const [data, setData] = useState({
-    name: "Janith Perera",
-    email: "janith.royal@heritage.com",
-    phone: "+94 77 980 1234",
-    language: "English / Sinhalese",
+    address: "",
+    email: "",
+    phone: "",
+    country: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setIsEdit(false);
     console.log("Saved Data:", data);
-    // 👉 API CALL HERE
+
+    const save ={
+        address: data.address,
+        phone: data.phone,
+        country: data.country
+    }
+
+    const res = await saveProfile(save)
+
+    if(res.isSave){
+      alert(res.message)
+    }else{
+      alert("Bio data save fail")
+    }
+    
   };
 
   return (
@@ -27,9 +42,9 @@ export default function EditBioData() {
 
       {/* Official Name */}
       <Field
-        label="Official Name"
-        name="name"
-        value={data.name}
+        label="Address"
+        name="address"
+        value={data.address}
         isEdit={isEdit}
         onChange={handleChange}
       />
@@ -46,7 +61,7 @@ export default function EditBioData() {
 
       {/* Phone */}
       <Field
-        label="Contact Dial"
+        label="Contact"
         name="phone"
         value={data.phone}
         isEdit={isEdit}
@@ -55,12 +70,21 @@ export default function EditBioData() {
 
       {/* Language */}
       <Field
-        label="Language"
-        name="language"
-        value={data.language}
+        label="Country"
+        name="country"
+        value={data.country}
         isEdit={isEdit}
         onChange={handleChange}
       />
+
+      {/* image */}
+      {/* <Field
+        label="Profile Photo"
+        name="image"
+        value={data.image}
+        isEdit={isEdit}
+        onChange={handleChange}
+      /> */}
 
       {/* Button */}
       <button
