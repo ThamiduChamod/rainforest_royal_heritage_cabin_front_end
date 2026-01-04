@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from './NavBar'
+import BookingBar from './BookingBar'
+import { myBooking } from '../services/booking'
 
 type Img ={
     img:string
     pageName: string
 }
+
+
+
 
 export default function PageHeroSection({ img, pageName }:Img) {
   return (
@@ -24,6 +29,8 @@ export default function PageHeroSection({ img, pageName }:Img) {
           <p className="text-lg opacity-90">
             We are a leading organization that has been providing reliable service for many years.
           </p>
+
+          
         </div>
       </section>
     </div>

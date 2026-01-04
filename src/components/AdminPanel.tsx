@@ -113,7 +113,8 @@ export default function AdminPanel() {
                         price: r.price,
                         pax: r.pax,
                         bedType: r.bedType,
-                        amenities: r.amenities
+                        amenities: r.amenities,
+                        count:r.count
                         
                       }
                     }isAdmin/>) :
