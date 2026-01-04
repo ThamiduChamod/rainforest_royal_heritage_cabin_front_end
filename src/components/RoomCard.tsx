@@ -13,9 +13,11 @@ import {
   Edit3,
   Trash2
 } from "lucide-react";
+import { deleteRoom } from "../services/rooms";
 
 type Room = {
   room:{
+    id: string
     status: string
     image: string
     type: string
@@ -29,6 +31,22 @@ type Room = {
 }
 const RoomCard = ({ room,isAdmin = false  }: Room) => {
   const isAvailable = room.status === "Available";
+
+
+const handelEdit = async ()=>{
+  console.log("room iD =",room.id)
+}
+const handelDelete = async ()=>{
+  console.log("room iD =",room.id)
+  const res = await deleteRoom(room.id)
+
+  console.log(res)
+  if(res.isDelete){
+    alert(res.message)
+  }else{
+    alert("DELETE FAIL")
+  }
+}
 
   return (
     <div className="relative group bg-white rounded-2xl shadow border overflow-hidden m-8">
@@ -44,10 +62,10 @@ const RoomCard = ({ room,isAdmin = false  }: Room) => {
       {/* ✅ ADMIN ONLY OVERLAY */}
         {isAdmin && (
           <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity gap-3">
-            <button className="bg-white p-2.5 rounded-full text-blue-600 hover:scale-110 transition">
+            <button onClick={handelEdit} className="bg-white p-2.5 rounded-full text-blue-600 hover:scale-110 transition">
               <Edit3 size={16} />
             </button>
-            <button className="bg-white p-2.5 rounded-full text-red-600 hover:scale-110 transition">
+            <button onClick={handelDelete} className="bg-white p-2.5 rounded-full text-red-600 hover:scale-110 transition">
               <Trash2 size={16} />
             </button>
           </div>
