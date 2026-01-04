@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios"
-
+import { refreshTokens } from "./auth"
 const api = axios.create({
     baseURL: "http://localhost:5000/api/v1"
 })
@@ -34,10 +34,10 @@ api.interceptors.response.use(
                     throw new Error("No refresh token vailable")
                 }
 
-                // const res = await refreshTokens(refreshToken)
-                // localStorage.setItem("accessToken", res.accessToken)
+                const res = await refreshTokens(refreshToken)
+                localStorage.setItem("accessToken", res.accessToken)
 
-                // originalRequest.headers.Authorization = `Bearer ${res.accessToken}`
+                originalRequest.headers.Authorization = `Bearer ${res.accessToken}`
 
                 return axios(originalRequest)
             }catch(error){

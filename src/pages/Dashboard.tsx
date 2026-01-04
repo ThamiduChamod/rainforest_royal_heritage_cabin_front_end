@@ -5,26 +5,52 @@ import { BedDouble, CheckCircle, ChevronRight, Gift, LayoutDashboard, PersonStan
 import RoomCard from '../components/RoomCard';
 import PackageCard from '../components/PackageCard';
 import AdminPanel from '../components/AdminPanel';
-import AddFrom from '../components/Modal';
-import AddPackage from '../components/AddPackage';
-import AddRoom from '../components/Modal';
-import Modal from '../components/Modal';
-import AddRooms from '../components/AddRooms';
 import Profile from '../components/Profile';
+import { getAllRooms } from '../services/rooms';
+import { getAllPackage } from '../services/package';
+
+type Room = {
+  id: string
+  type: string
+  price: string
+  status: string
+  pax: number
+  bedType: string
+  amenities: []
+  image: string
+  count: number
+
+}
+type Package = {
+  id: string
+  name: string
+  price: string
+  tagline: string
+  status: string
+  features: []
+  image: string
+  count: number
+
+}
+
 
 export default function Dashboard() {
     const [activeTab, setActiveTab] = useState("dashboard");
+    const [roomsData, setRoomsData] = useState<Room[]>([])
+    const [packagesData, setPackagesData] = useState<Package[]>([])
     
     const [role, setRole] = useState("")
 
   useEffect(() => {
-    const roles = localStorage.getItem("logInData");
+    const roles = localStorage.getItem("role");
     if(roles){
       setRole(roles);
     }
-  }, []);
+    setRoomData()
+    setPackageData()
 
-   
+
+  }, []);
 
     type MenuItem = {
       id: string;
@@ -50,6 +76,18 @@ export default function Dashboard() {
       )
       
     }
+    
+    const setRoomData = async () =>{
+        const res =await getAllRooms()
+
+        setRoomsData(res.data)  
+    }
+    const setPackageData = async () =>{
+      const res = await getAllPackage()
+
+      setPackagesData(res.data)
+    }
+
 
 
 
@@ -73,15 +111,15 @@ export default function Dashboard() {
     </div>
   );
 
-  const roomsData = [
-    { id: 1, type: "Deluxe Ocean View", price: "12,500", status: "Available", pax: 2, bedType: "King Size", amenities: ["A/C", "WiFi"], image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=500" },
-    { id: 2, type: "Standard Double", price: "8,000", status: "Booked", pax: 2, bedType: "Double Bed", amenities: ["A/C"], image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=500" },
-    { id: 1, type: "Deluxe Ocean View", price: "12,500", status: "Available", pax: 2, bedType: "King Size", amenities: ["A/C", "WiFi"], image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=500" },
-  ];
+  // const roomsData = [
+  //   { id: 1, type: "Deluxe Ocean View", price: "12,500", status: "Available", pax: 2, bedType: "King Size", amenities: ["A/C", "WiFi"], image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=500" },
+  //   { id: 2, type: "Standard Double", price: "8,000", status: "Booked", pax: 2, bedType: "Double Bed", amenities: ["A/C"], image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=500" },
+  //   { id: 1, type: "Deluxe Ocean View", price: "12,500", status: "Available", pax: 2, bedType: "King Size", amenities: ["A/C", "WiFi"], image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=500" },
+  // ];
 
-  const packagesData = [
-    { id: 1, name: "Classic Day Outing", price: "3,500", tagline: "Perfect for family", status: "Available", features: ["Lunch Buffet", "Pool Access"], image: "https://images.unsplash.com/photo-1501117716987-c8e1ecb210e7?q=80&w=800" },
-  ];
+  // const packagesData = [
+  //   { id: 1, name: "Classic Day Outing", price: "3,500", tagline: "Perfect for family", status: "Available", features: ["Lunch Buffet", "Pool Access"], image: "https://images.unsplash.com/photo-1501117716987-c8e1ecb210e7?q=80&w=800" },
+  // ];
 
   
   
@@ -131,6 +169,7 @@ export default function Dashboard() {
       {activeTab === "rooms" && (
         <div className="grid justify-around lg:grid-cols-3  animate-in fade-in duration-500">
           {roomsData.map(room => <RoomCard room={{
+            id:room.id,
             status:room.status,
             image: room.image,
             type: room.type,
@@ -159,6 +198,7 @@ export default function Dashboard() {
 
           {activeTab === "author" && (
             // <div className='w-full h-full bg-[#4b5985]'>
+            
               <AdminPanel/>
             // </div>
           )}
