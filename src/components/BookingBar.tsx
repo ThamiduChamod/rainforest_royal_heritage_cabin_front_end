@@ -1,56 +1,20 @@
-import React, { useEffect, useState } from "react";
 import { Calendar, Users } from "lucide-react";
-import { myBooking } from "../services/booking";
 
 type BookingTime = {
   checkIn: string;
   checkOut: string;
+  title:string;
 };
-
-const BookingBar = () => {
-
-  const [time, setTime] = useState<BookingTime>({
-    checkIn: "Loading...",
-    checkOut: "Loading..."
-  });
-
-  useEffect(() => {
-    getBookingTime();
-  }, []);
-
-  const formatDateTime = (iso: string) => {
-    return new Date(iso).toLocaleString("en-LK", {
-      weekday: "short",
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true
-    });
-  };
-
-  const getBookingTime = async () => {
-    try {
-      const res = await myBooking();
-
-      if (res.data.length > 0) {
-        const booking = res.data[0];
-
-        setTime({
-          checkIn: formatDateTime(booking.checkIn),
-          checkOut: formatDateTime(booking.checkOut)
-        });
-      }
-
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+//  const [time, setTime] = useState<BookingTime>({
+//     checkIn: "Loading...",
+//     checkOut: "Loading..."
+//   });
+const BookingBar = (bookTime: BookingTime, ) => {
+  
   return (
     <div className="relative top-20 m-20  z-30 w-full max-w-7xl mx-auto -mt-16 px-6">
       <div className="bg-[#111827]/60 backdrop-blur-xl border border-white/10 rounded-[35px] shadow-2xl p-4 lg:p-2">
+        <h1  className="flex m-5 text-4xl font-bold text-emerald-500 ">{bookTime.title}</h1>
         <div className="flex flex-col lg:flex-row items-center gap-2">
 
           {/* Check In */}
@@ -63,7 +27,7 @@ const BookingBar = () => {
                 </span>
               </div>
               <p className="text-white font-bold ml-7">
-                {time.checkIn}
+                {bookTime.checkIn}
               </p>
             </div>
           </div>
@@ -80,7 +44,7 @@ const BookingBar = () => {
                 </span>
               </div>
               <p className=" text-white font-bold ml-7">
-                {time.checkOut}
+                {bookTime.checkOut}
               </p>
             </div>
           </div>

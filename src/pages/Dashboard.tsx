@@ -9,6 +9,7 @@ import Profile from '../components/Profile';
 import { getAllRooms } from '../services/rooms';
 import { getAllPackage } from '../services/package';
 import BookingBar from '../components/BookingBar';
+import { myBooking, myPackageBooking } from '../services/booking';
 
 type Room = {
   _id: string
@@ -33,12 +34,24 @@ type Package = {
   count: number
 
 }
-
+type BookingTime = {
+  checkIn: string;
+  checkOut: string;
+};
 
 export default function Dashboard() {
     const [activeTab, setActiveTab] = useState("dashboard");
     const [roomsData, setRoomsData] = useState<Room[]>([])
     const [packagesData, setPackagesData] = useState<Package[]>([])
+    const [time, setTime] = useState<BookingTime>({
+        checkIn: "Loading...",
+        checkOut: "Loading..."
+    });
+    const [packageTime, setPackageTime] = useState<BookingTime>({
+        checkIn: "Loading...",
+        checkOut: "Loading..."
+    });
+
     
     const [role, setRole] = useState("")
 
@@ -89,6 +102,56 @@ export default function Dashboard() {
       setPackagesData(res.data)
     }
 
+    useEffect(() => {
+    getBookingTime();
+    getPackageBookingTime();
+  }, []);
+
+    const getBookingTime = async () => {
+      try {
+        const res = await myBooking();
+
+        if (res.data.length > 0) {
+          const booking = res.data[0];
+
+          setTime({
+            checkIn:formatDateTime( booking.checkIn),
+            checkOut:formatDateTime (booking.checkOut)
+          });
+        }
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    const getPackageBookingTime = async () => {
+      try {
+        const res = await myPackageBooking();
+
+        if (res.data.length > 0) {
+          const booking = res.data[0];
+
+          setPackageTime({
+            checkIn:formatDateTime( booking.checkIn),
+            checkOut:formatDateTime (booking.checkOut)
+          });
+        }
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  const formatDateTime = (iso: string) => {
+      return new Date(iso).toLocaleString("en-LK", {
+        weekday: "short",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true
+      });
+  };
 
 
 
@@ -168,7 +231,9 @@ export default function Dashboard() {
               </div>
               
             </div>
-            <BookingBar/>
+            <BookingBar checkIn={time.checkIn} checkOut={time.checkOut} title={"Room Booking"}/>
+            <div className=' relative w-full h-20'/>
+            <BookingBar checkIn={packageTime.checkIn} checkOut={packageTime.checkOut} title={"Package Booking"}/>
             <div className=' relative w-full h-20'/>
             </>
           )}
