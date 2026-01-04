@@ -14,6 +14,8 @@ import {
   Trash2
 } from "lucide-react";
 import { deleteRoom } from "../services/rooms";
+import { useState } from "react";
+import { bookRoom } from "../services/booking";
 
 type Room = {
   room:{
@@ -25,12 +27,19 @@ type Room = {
     pax:number
     bedType: string
     amenities: string[]
+    count:number
 
   }
   isAdmin?: boolean
 }
 const RoomCard = ({ room,isAdmin = false  }: Room) => {
-  const isAvailable = room.status === "Available";
+  const isAvailable = room.status === "AVAILABLE";
+
+   // ✅ modal state
+  const [showModal, setShowModal] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
+  
+  
 
 
 const handelEdit = async ()=>{
@@ -47,6 +56,32 @@ const handelDelete = async ()=>{
     alert("DELETE FAIL")
   }
 }
+
+const handelBooking = async () =>{
+  console.log(room.id)
+  if(room.count <= 0){
+    alert("All Rooms are book")
+  }
+   setShowModal(true); // open modal
+
+}
+
+ const handleConfirmBooking = async () => {
+    if(!selectedDate) {
+      alert("Please select a date first!");
+      return;
+    }
+    
+    const res =  await bookRoom(room.id,selectedDate )
+
+    if(res.isBooked){
+      console.log("Booking room:", room.id, "for date:", selectedDate);
+    alert(`Room booked for ${selectedDate}`);
+    setShowModal(false);
+    setSelectedDate("");
+    }
+    
+  };
 
   return (
     <div className="relative group bg-white rounded-2xl shadow border overflow-hidden m-8">
@@ -85,7 +120,7 @@ const handelDelete = async ()=>{
         <div className="flex gap-2 mb-5 flex-wrap">
           {room.amenities.map((a, i) => (
             <span key={i} className="text-xs bg-slate-100 px-2 py-1 rounded flex items-center gap-1">
-              {a === "A/C" && <Wind size={12}/>}
+              {a === "AC" && <Wind size={12}/>}
               {a === "WiFi" && <Wifi size={12}/>}
               {a}
             </span>
@@ -96,6 +131,7 @@ const handelDelete = async ()=>{
 
         <button
           disabled={!isAvailable}
+          onClick={handelBooking}
           className={`w-full py-3 rounded-xl font-bold ${
             isAvailable
               ? "bg-slate-900 text-white hover:bg-blue-600"
@@ -104,9 +140,40 @@ const handelDelete = async ()=>{
         >
           {isAvailable ? "Book This Room" : "Sold Out"}
         </button>
-      </div>
+        {/* ✅ Modal */}
+          {showModal && (
+            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+              <div className="bg-white p-6 rounded-2xl w-80 shadow-2xl transform transition-all duration-300 scale-100">
+                <h2 className="text-xl font-bold mb-4 text-gray-800">Select Booking Date</h2>
+                
+                <input
+                  type="date"
+                  value={selectedDate}
+                  onChange={(e) => setSelectedDate(e.target.value)}
+                  min={new Date().toISOString().split("T")[0]}
+                  className="w-full p-3 border border-gray-300 rounded-xl mb-5 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                />
 
-      
+                <div className="flex justify-end gap-3">
+                  <button
+                    onClick={() => setShowModal(false)}
+                    className="px-4 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold transition"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleConfirmBooking}
+                    className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold transition"
+                  >
+                    Confirm
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+
+      </div>
     </div>
   );
 };

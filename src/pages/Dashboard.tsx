@@ -8,9 +8,10 @@ import AdminPanel from '../components/AdminPanel';
 import Profile from '../components/Profile';
 import { getAllRooms } from '../services/rooms';
 import { getAllPackage } from '../services/package';
+import BookingBar from '../components/BookingBar';
 
 type Room = {
-  id: string
+  _id: string
   type: string
   price: string
   status: string
@@ -156,27 +157,34 @@ export default function Dashboard() {
 
       {/* 1. DASHBOARD VIEW */}
           {activeTab === "dashboard" && (
-            <div className=" m-10 flex justify-around items-center animate-in fade-in duration-500">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-15">
-                <StatCard statcard={{title:"Total Inventory" ,value:"40 Rooms",  color:"bg-blue-500"}} icon={BedDouble}  />
+            <>
+            
+            <div className="relative m-10 top-0.5 flex justify-around items-center animate-in fade-in duration-500">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-15">
+                <StatCard statcard={{title:"Total Rooms" ,value:"40 Rooms",  color:"bg-blue-500"}} icon={BedDouble}  />
                 <StatCard statcard={{title:"Today's Occupancy", value:"75%",  color:"bg-emerald-500"}} icon={CheckCircle} />
-                <StatCard statcard={{title:"Pending Packages", value:"12", color:"bg-amber-500"}} icon={Gift} />
-                <StatCard statcard={{title:"Active Guests", value:"34", color:"bg-indigo-500"}} icon={Users} />
+                <StatCard statcard={{title:"Packages", value:"12", color:"bg-amber-500"}} icon={Gift} />
+                {/* <StatCard statcard={{title:"Active Guests", value:"34", color:"bg-indigo-500"}} icon={Users} /> */}
               </div>
+              
             </div>
+            <BookingBar/>
+            <div className=' relative w-full h-20'/>
+            </>
           )}
 
       {activeTab === "rooms" && (
         <div className="grid justify-around lg:grid-cols-3  animate-in fade-in duration-500">
           {roomsData.map(room => <RoomCard room={{
-            id:room.id,
+            id:room._id,
             status:room.status,
             image: room.image,
             type: room.type,
             price: room.price,
             pax: room.pax,
             bedType: room.bedType,
-            amenities: room.amenities
+            amenities: room.amenities,
+            count: room.count
           }} />)}
         </div>
       )}
