@@ -5,22 +5,56 @@ import {
   Trash2,
   XCircle
 } from "lucide-react";
+import { bookPackage } from "../services/booking";
+import { useState } from "react";
 
 type PKG = {
   pkg:{
+    id: string
     status:string
     image: string
     name: string
     price: string
     tagline: string
     features:string[]
+    count:number
 
   }
   isAdmin?: boolean
 }
 
 const PackageCard = ({ pkg, isAdmin=false }:PKG) => {
-  const isAvailable = pkg.status === "Available";
+  const isAvailable = pkg.status === "AVAILABLE";
+   const [showModal, setShowModal] = useState(false);
+    const [selectedDate, setSelectedDate] = useState("");
+
+  const handelBooking = async ()=>{
+    console.log(pkg.id)
+
+    if(!pkg.id){
+      alert("can't book")
+    }
+    
+    if(pkg.count <= 0){
+      alert("All Rooms are book")
+    }
+   setShowModal(true); // open modal
+  }
+
+  const handleConfirmBooking = async () => {
+    if(!selectedDate) {
+      alert("Please select a date first!");
+      return;
+    }
+    const res = await bookPackage(pkg.id,selectedDate)
+
+    if(res.isBooked){
+      console.log("Booking room:", pkg.id, "for date:", selectedDate);
+      alert(`Room booked for ${selectedDate}`);
+      setShowModal(false);
+      setSelectedDate("");
+    }
+  }
 
   return (
     <div className="relative group bg-white rounded-2xl shadow border overflow-hidden m-8">
@@ -100,6 +134,7 @@ const PackageCard = ({ pkg, isAdmin=false }:PKG) => {
         {/* Action Button */}
         <button
           disabled={!isAvailable}
+          onClick={handelBooking}
           className={`w-full py-3 rounded-xl font-bold text-sm transition ${
             isAvailable
               ? "bg-slate-900 text-white hover:bg-blue-600"
@@ -108,6 +143,38 @@ const PackageCard = ({ pkg, isAdmin=false }:PKG) => {
         >
           {isAvailable ? "Book Package" : "Sold Out"}
         </button>
+
+         {/* ✅ Modal */}
+          {showModal && (
+            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+              <div className="bg-white p-6 rounded-2xl w-80 shadow-2xl transform transition-all duration-300 scale-100">
+                <h2 className="text-xl font-bold mb-4 text-gray-800">Select Booking Date</h2>
+                
+                <input
+                  type="date"
+                  value={selectedDate}
+                  onChange={(e) => setSelectedDate(e.target.value)}
+                  min={new Date().toISOString().split("T")[0]}
+                  className="w-full p-3 border border-gray-300 rounded-xl mb-5 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                />
+
+                <div className="flex justify-end gap-3">
+                  <button
+                    onClick={() => setShowModal(false)}
+                    className="px-4 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold transition"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleConfirmBooking}
+                    className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold transition"
+                  >
+                    Confirm
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
       </div>
     </div>
   );

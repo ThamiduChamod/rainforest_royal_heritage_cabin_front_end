@@ -23,7 +23,7 @@ type Room = {
 
 }
 type Package = {
-  id: string
+  _id: string
   name: string
   price: string
   tagline: string
@@ -193,12 +193,14 @@ export default function Dashboard() {
           {activeTab === "packages" && (
             <div className="grid justify-around lg:grid-cols-3  animate-in fade-in duration-500">
               {packagesData.map(PKG => <PackageCard pkg={{
+                id:PKG._id,
                 status: PKG.status,
                 image: PKG.image,
                 name: PKG.name,
                 price: PKG.price,
                 tagline: PKG.tagline,
-                features: PKG.features
+                features: PKG.features,
+                count: PKG.count
               }}/>)}
             </div>
           )}
