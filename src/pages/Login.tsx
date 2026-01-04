@@ -1,10 +1,11 @@
 import React, { useState, useEffect, type FormEvent } from 'react';
-import {login, register, sendOTP, verifyOTP} from "../services/auth"
+import {getMyDetails, login, register, sendOTP, verifyOTP} from "../services/auth"
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/authContext';
 
 const AuthPage = () => {
   const navigate = useNavigate()
-
+  const {setUser} = useAuth()
   const [isSignIn, setIsSignIn] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -28,7 +29,6 @@ const AuthPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("")
   const [role, setRole] = useState("USER")
 
-  const DEMO_OTP = "123456";
 
   const validateEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -111,7 +111,11 @@ const AuthPage = () => {
 
       await localStorage.setItem("accessToken", res.data.accessToken)
       await localStorage.setItem("refreshToken", res.data.refreshToken)
-      await localStorage.setItem("logInData", res.data.roles)
+      await localStorage.setItem("role", res.data.roles)
+
+      const detail = await getMyDetails()
+
+      setUser(detail.data)
 
       alert("Login Successfully")
       localStorage.setItem("isLoggedIn", "true");
