@@ -59,6 +59,7 @@ const AuthPage = () => {
           
       }
     } catch (err: any) {
+        console.error(err)
         alert("Fail OTP Send")
     }
   };
