@@ -4,7 +4,7 @@ const api = axios.create({
     baseURL: "https://rainforest-royal-heritage-cabin-back-end.onrender.com/api/v1"
 })
 
-const PUBLIC_ENDPOINTS = ["/auth/login","/auth/register"]
+const PUBLIC_ENDPOINTS = ["/auth/logIn","/auth/register","/auth/sendOTP","/auth/verifyOTP"]
 
 api.interceptors.request.use((config) =>{
     const token = localStorage.getItem("accessToken")
