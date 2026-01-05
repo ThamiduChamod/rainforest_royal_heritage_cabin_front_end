@@ -207,7 +207,7 @@ const AuthPage = () => {
           <div className={`hidden md:block text-[#515352] text-center transition-all duration-1000
             ${!isSignIn ? 'translate-x-0 opacity-100' : 'translate-x-[-150%] opacity-0 absolute'}`}>
             <h2 className="text-5xl font-extrabold mb-4">Welcome Back!</h2>
-            <p className="px-10">දිගටම අප සමග රැඳී සිටීමට ඔබගේ තොරතුරු ඇතුළත් කර ලොග් වන්න.</p>
+            <p className="px-10">Please enter your details and log in to stay connected with us.</p>
           </div>
         </div>
 
@@ -329,7 +329,7 @@ const AuthPage = () => {
           <div className={`hidden md:block text-[#515352] text-center transition-all duration-1000
             ${isSignIn ? 'translate-x-0 opacity-100' : 'translate-x-[150%] opacity-0 absolute'}`}>
             <h2 className="text-5xl font-extrabold mb-4">Join With Us</h2>
-            <p className="px-10">අදම අප හා සම්බන්ධ වී නවතම සේවාවන් අත්විඳින්න.</p>
+            <p className="px-10">Join us today and experience our latest services.</p>
           </div>
         </div>
 
