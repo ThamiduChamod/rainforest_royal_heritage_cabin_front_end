@@ -62,8 +62,6 @@ export default function Dashboard() {
     }
     setRoomData()
     setPackageData()
-
-
   }, []);
 
     type MenuItem = {

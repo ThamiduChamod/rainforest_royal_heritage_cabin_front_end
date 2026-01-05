@@ -1,10 +1,15 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Camera } from "lucide-react";
 import { updateImage } from "../services/profile";
 
 export default function ProfileImagePicker() {
   const fileRef = useRef<HTMLInputElement | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+
+  useEffect(() => {
+    console.log("aaa")
+  }, []);
+
 
   const handleButtonClick = () => {
     fileRef.current?.click(); // 👈 file picker open
@@ -19,7 +24,7 @@ export default function ProfileImagePicker() {
 
     const res = await updateImage({image: file})
     alert(res.message)
-    console.log("aaa")
+    
   };
 
   return (
@@ -27,7 +32,7 @@ export default function ProfileImagePicker() {
       {/* Image */}
       <img
         src={preview || "https://via.placeholder.com/150"}
-        className="w-full h-full object-cover rounded-[32px]"
+        className="w-full h-full object-cover "
       />
 
       {/* Camera Button */}

@@ -13,3 +13,8 @@ export const updateImage = async (data: any) =>{
     })
     return res.data
 }
+
+export const getProfile = async () =>{
+    const res = await api.get("/profile/getMy")
+    return res.data
+}

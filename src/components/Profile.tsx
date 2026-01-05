@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { 
   User, Shield, Lock, Bell, Camera, 
   Mail, MapPin, Globe, PenLine, ChevronRight,
@@ -7,10 +7,52 @@ import {
 import AddAuthor from "./AddAuthor";
 import EditBioData from "./EditBioData";
 import ProfileImagePicker from "./ProfileImage";
+import { getProfile, updateImage } from "../services/profile";
 
 const ProfileComponent = () => {
   const [activeSubTab, setActiveSubTab] = useState("personal");
   const [openUpload, setOpenUpload] = useState(false);
+  const fileRef = useRef<HTMLInputElement | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+  type ProfileData = {
+  _id: string;
+  user: string;
+  image: string;
+  address: string;
+  phone: string;
+  country: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+};
+
+const [profile, setProfile] = useState<ProfileData | null>(null);
+
+  useEffect(() => {
+      getProfileData()
+    }, []);
+  
+  const getProfileData = async ()=>{
+    const res = await getProfile()
+    console.log(res.data)
+    setProfile(res.data)
+     
+  }
+
+  const handleButtonClick = () => {
+    fileRef.current?.click(); // 👈 file picker open
+  };
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+  
+      setPreview(URL.createObjectURL(file));
+      console.log(file); // 👉 backend send later
+  
+      const res = await updateImage({image: file})
+      alert(res.message)
+      
+    };
   return (
     <div className="max-w-6xl mx-auto animate-in fade-in duration-700 text-left m-10 ">
       
@@ -19,20 +61,26 @@ const ProfileComponent = () => {
         <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl -mr-20 -mt-20 group-hover:bg-emerald-500/10 transition-all duration-700" />
         
         <div className="relative">
-          {/* <div className="w-32 h-32 rounded-[35px] bg-gradient-to-br from-emerald-500 to-teal-700 p-1"> */}
-            {/* <img 
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200" 
+          <div className="w-32 h-32 rounded-[35px]  from-emerald-500 to-teal-700 p-1">
+            <img 
+              src={preview || profile?.image} 
               className="w-full h-full object-cover rounded-[32px] border-4 border-[#0B0F17]" 
               alt="User" 
-            /> */}
+            />
 
-          {/* </div> */}
-          <button onClick={() =>setOpenUpload(true)} className="absolute -bottom-2 -right-2 bg-emerald-500 text-white p-2.5 rounded-2xl shadow-xl hover:scale-110 transition-transform border-4 border-[#111827]">
+          </div>
+          <button onClick={handleButtonClick} className="absolute -bottom-2 -right-2 bg-emerald-500 text-white p-2.5 rounded-2xl shadow-xl hover:scale-110 transition-transform border-4 border-[#111827]">
             <Camera size={16} />
           </button>
-          {openUpload && (
-              <ProfileImagePicker />
-          )}
+          {/* Hidden File Input */}
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+         
           
         </div>
         
@@ -46,7 +94,7 @@ const ProfileComponent = () => {
           </div>
           <div className="flex flex-wrap justify-center md:justify-start gap-4 text-slate-500 text-sm font-bold">
              <span className="flex items-center gap-2"><Mail size={14} className="text-emerald-500" /> janith.royal@heritage.com</span>
-             <span className="flex items-center gap-2"><MapPin size={14} className="text-emerald-500" /> Sinharaja, Sri Lanka</span>
+             <span className="flex items-center gap-2"><MapPin size={14} className="text-emerald-500" /> {profile?.address}</span>
           </div>
         </div>
 
