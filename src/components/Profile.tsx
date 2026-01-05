@@ -6,10 +6,11 @@ import {
 } from "lucide-react";
 import AddAuthor from "./AddAuthor";
 import EditBioData from "./EditBioData";
+import ProfileImagePicker from "./ProfileImage";
 
 const ProfileComponent = () => {
   const [activeSubTab, setActiveSubTab] = useState("personal");
-
+  const [openUpload, setOpenUpload] = useState(false);
   return (
     <div className="max-w-6xl mx-auto animate-in fade-in duration-700 text-left m-10 ">
       
@@ -18,17 +19,23 @@ const ProfileComponent = () => {
         <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl -mr-20 -mt-20 group-hover:bg-emerald-500/10 transition-all duration-700" />
         
         <div className="relative">
-          <div className="w-32 h-32 rounded-[35px] bg-gradient-to-br from-emerald-500 to-teal-700 p-1">
-            <img 
+          {/* <div className="w-32 h-32 rounded-[35px] bg-gradient-to-br from-emerald-500 to-teal-700 p-1"> */}
+            {/* <img 
               src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200" 
               className="w-full h-full object-cover rounded-[32px] border-4 border-[#0B0F17]" 
               alt="User" 
-            />
-          </div>
-          <button className="absolute -bottom-2 -right-2 bg-emerald-500 text-white p-2.5 rounded-2xl shadow-xl hover:scale-110 transition-transform border-4 border-[#111827]">
+            /> */}
+
+          {/* </div> */}
+          <button onClick={() =>setOpenUpload(true)} className="absolute -bottom-2 -right-2 bg-emerald-500 text-white p-2.5 rounded-2xl shadow-xl hover:scale-110 transition-transform border-4 border-[#111827]">
             <Camera size={16} />
           </button>
+          {openUpload && (
+              <ProfileImagePicker />
+          )}
+          
         </div>
+        
 
         <div className="flex-1 text-center md:text-left">
           <div className="flex flex-col md:flex-row md:items-center gap-3 mb-2">
