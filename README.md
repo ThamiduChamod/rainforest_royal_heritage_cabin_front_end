@@ -20,11 +20,11 @@ The system provides a secure, scalable, and responsive platform for managing use
 ---
 
 ## 🧩 System Architecture
-Frontend (React + TypeScript + Tailwind + Redux)
-↓ REST API
-Backend (Node.js + Express + TypeScript)
-↓
-MongoDB Atlas (Cloud Database)
+- Frontend (React + TypeScript + Tailwind + Redux)
+- ↓ REST API
+- Backend (Node.js + Express + TypeScript)
+- ↓
+- MongoDB Atlas (Cloud Database)
 
 
 
@@ -172,7 +172,15 @@ One advanced feature is implemented as per coursework requirements:
   PUT    /api/bookings/:id
   DELETE /api/bookings/:id
 ```
-## 📊 Evaluation Criteria Alignment-✅ MERN + TypeScript-✅ JWT Authentication & Security-✅ Redux State Management-✅ Cloud Deployment-✅ Advanced Feature-✅ Proper Documentation-✅ GitHub Version Control 
+
+## 📊 Evaluation Criteria Alignment
+- ✅ MERN + TypeScript
+- ✅ JWT Authentication & Security
+- ✅ Redux State Management
+- ✅ Cloud Deployment
+- ✅ Advanced Feature
+- ✅ Proper Documentation
+- ✅ GitHub Version Control 
 
 ---
 ## 👨‍🎓 Author
