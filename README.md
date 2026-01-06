@@ -84,68 +84,70 @@ One advanced feature is implemented as per coursework requirements:
 ---
 
 ## 🗂️ Backend Folder Structure
-backend/
-│── src/
-│ ├── controllers/
-│ ├── models/
-│ ├── routes/
-│ ├── middleware/
-│ ├── config/
-│ └── server.ts
-│── .env
-│── package.json
-
+```
+  backend/
+  │── src/
+  │ ├── controllers/
+  │ ├── models/
+  │ ├── routes/
+  │ ├── middleware/
+  │ ├── config/
+  │ └── server.ts
+  │── .env
+  │── package.json
+```
 
 ---
 
 ## 🎨 Frontend Folder Structure
-frontend/
-│── src/
-│ ├── components/
-│ ├── pages/
-│ ├── redux/
-│ ├── services/
-│ └── App.tsx
-│── package.json
-
+```
+  frontend/
+  │── src/
+  │ ├── components/
+  │ ├── pages/
+  │ ├── redux/
+  │ ├── services/
+  │ └── App.tsx
+  │── package.json
+```
 
 ---
 
 ## ⚙️ Setup & Run Instructions
 
 ### 1️⃣ Clone the Repository
-
-```bash```
+```
   git clone https://github.com/ThamiduChamod/rainforest_royal_heritage_cabin_back_end.git
+```
 ### 2️⃣ Backend Setup
- 
-```bash```
-  Copy code
+
+```
   cd backend
   npm install
-  npm run dev 
+  npm run dev
+``` 
 
-* Create a .env file inside the backend folder:
-
-  ```env```
-    Copy code
+**Create a .env file inside the backend folder:**
+  ```
     PORT=5000
     MONGO_URI=your_mongodb_atlas_connection_string
     JWT_SECRET=your_secret_key
-### 3️⃣ Frontend Setup
   ```
-  bash 
+### 3️⃣ Frontend Setup
+  ``` 
     cd frontend
     npm install
     npm run dev  
   ```
 
 ## 🌐 Deployed URLs
+```
   Frontend:
     https://your-frontend.vercel.app
 
   Backend API:
     https://your-backend.onrender.com
+```
 
 ## 📸 Screenshots
 **Include screenshots of:**
@@ -170,14 +172,7 @@ frontend/
   PUT    /api/bookings/:id
   DELETE /api/bookings/:id
 ```
-## 📊 Evaluation Criteria Alignment
--✅ MERN + TypeScript
--✅ JWT Authentication & Security
--✅ Redux State Management
--✅ Cloud Deployment
--✅ Advanced Feature
--✅ Proper Documentation
--✅ GitHub Version Control 
+## 📊 Evaluation Criteria Alignment-✅ MERN + TypeScript-✅ JWT Authentication & Security-✅ Redux State Management-✅ Cloud Deployment-✅ Advanced Feature-✅ Proper Documentation-✅ GitHub Version Control 
 
 ---
 ## 👨‍🎓 Author
