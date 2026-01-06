@@ -143,22 +143,25 @@ One advanced feature is implemented as per coursework requirements:
 ## 🌐 Deployed URLs
 ```
   Frontend:
-    https://your-frontend.vercel.app
+    https://rainforest-royal-heritage-cabin-fro-gules.vercel.app
 
   Backend API:
-    https://your-backend.onrender.com
+    https://rainforest-royal-heritage-cabin-back-end.onrender.com
 ```
 
 ## 📸 Screenshots
 **Include screenshots of:**
 
-  Login / Register page
+### 🔐 Login & Register
+![Login Page](./src/assets/screenshorts/logIn.png)
+![Register Page](./src/assets/screenshorts/register.png)
 
+
+  
   Dashboard
 
   CRUD operations
 
-  Responsive mobile view
 
 
 
