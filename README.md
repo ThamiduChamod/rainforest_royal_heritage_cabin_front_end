@@ -133,11 +133,11 @@ frontend/
     MONGO_URI=your_mongodb_atlas_connection_string
     JWT_SECRET=your_secret_key
 ### 3️⃣ Frontend Setup
-  ```bash```
-    Copy code
+  ```bash
+    
     cd frontend
     npm install
-    npm run dev 
+    npm run dev  ```
 
 ## 🌐 Deployed URLs
   Frontend:
@@ -147,7 +147,7 @@ frontend/
     https://your-backend.onrender.com
 
 ## 📸 Screenshots
-Include screenshots of:
+**Include screenshots of:**
 
   Login / Register page
 
@@ -170,14 +170,14 @@ Include screenshots of:
   DELETE /api/bookings/:id
 ```
 ## 📊 Evaluation Criteria Alignment
-   
-  ✅ MERN + TypeScript
-  ✅ JWT Authentication & Security
-  ✅ Redux State Management
-  ✅ Cloud Deployment
-  ✅ Advanced Feature
-  ✅ Proper Documentation
-  ✅ GitHub Version Control 
+-✅ MERN + TypeScript
+-✅ JWT Authentication & Security
+-✅ Redux State Management
+-✅ Cloud Deployment
+-✅ Advanced Feature
+-✅ Proper Documentation
+-✅ GitHub Version Control 
 
+---
 ## 👨‍🎓 Author
- *** Thamidu Chamod ***
+ **Thamidu Chamod**
