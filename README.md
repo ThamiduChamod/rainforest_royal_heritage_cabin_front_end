@@ -1,69 +1,178 @@
-# 🏨 Rainforest Royal Heritage Cabin - Frontend
-
-This is the official frontend for the **Rainforest Royal Heritage Cabin** management system. It provides an intuitive interface for users to browse rooms, manage bookings, and view cabin details, while admins can manage the entire system via a dedicated dashboard.
-
----
-
-## 🚀 Live Demo
-You can view the live application here:  
-**Frontend:** [https://rainforest-royal-heritage-cabin-fro-gules.vercel.app](https://rainforest-royal-heritage-cabin-fro-gules.vercel.app)  
-**Backend API:** [https://rainforest-royal-heritage-cabin-back-end.onrender.com](https://rainforest-royal-heritage-cabin-back-end.onrender.com)
+# 🌿 Rainforest Royal Heritage Cabin  
+**Full Stack Web Application (MERN + TypeScript)**
 
 ---
 
-## ✨ Features
-- **User Authentication:** Secure login and registration with OTP verification.
-- **Room Browsing:** View detailed information, high-quality images, and pricing for various cabins.
-- **Booking System:** Easy room reservation process for guests.
-- **Admin Dashboard:** Full CRUD functionality to manage rooms, bookings, and user profiles.
-- **Responsive Design:** Fully optimized for mobile, tablet, and desktop views.
-- **Interactive UI:** Smooth transitions and modern components using Tailwind CSS.
+## 📌 Project Overview
+Rainforest Royal Heritage Cabin is a full-stack web application developed using the **MERN stack with TypeScript**, following **Rapid Application Development (RAD)** principles.  
+The system provides a secure, scalable, and responsive platform for managing users, bookings, and content with modern UI/UX and cloud-based deployment.
+
+---
+
+## 🎯 Learning Outcomes Achieved
+- Design and development of a full-stack MERN + TypeScript application
+- Application of RAD & Agile methodologies
+- Secure authentication using JWT & bcryptjs
+- State management using Redux Toolkit
+- Cloud deployment with professional DevOps practices
+- Version control using Git & GitHub
+
+---
+
+## 🧩 System Architecture
+Frontend (React + TypeScript + Tailwind + Redux)
+↓ REST API
+Backend (Node.js + Express + TypeScript)
+↓
+MongoDB Atlas (Cloud Database)
+
+
 
 ---
 
 ## 🛠️ Technologies Used
-- **Framework:** [React 19](https://react.dev/)
-- **Build Tool:** [Vite](https://vitejs.dev/)
-- **Language:** [TypeScript](https://www.typescriptlang.org/)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/) & [Material Tailwind](https://www.material-tailwind.com/)
-- **Routing:** [React Router DOM](https://reactrouter.com/)
-- **Icons:** [Lucide React](https://lucide.dev/)
-- **API Handling:** [Axios](https://axios-http.com/)
+
+### Frontend
+- React (TypeScript)
+- Redux Toolkit
+- TailwindCSS
+- Axios
+- React Router
+
+### Backend
+- Node.js
+- Express.js
+- TypeScript
+- MongoDB & Mongoose
+- JWT Authentication
+- bcryptjs (Password Encryption)
+
+### Deployment & Tools
+- Git & GitHub
+- MongoDB Atlas
+- Render (Backend)
+- Vercel / Netlify (Frontend)
 
 ---
 
-## 📦 Getting Started
+## 🔐 Security Features
+- JWT-based authentication & authorization
+- Password hashing using bcryptjs
+- Protected API routes
+- Environment variable management with `.env`
+- Token expiry handling
 
-Follow these steps to run the project locally:
+---
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/ThamiduChamod/rainforest_royal_heritage_cabin_front_end.git](https://github.com/ThamiduChamod/rainforest_royal_heritage_cabin_front_end.git)
-   cd rainforest_royal_heritage_cabin_front_end
-Install dependencies:
+## 🚀 Core Features
+- User registration and login
+- Role-based authorization
+- Secure CRUD operations
+- Responsive UI (mobile & desktop)
+- Redux-based global state management
+- RESTful API with proper HTTP status codes
+- Centralized error handling
 
-Bash
+---
 
+## 🌟 Advanced Feature
+One advanced feature is implemented as per coursework requirements:
+- AI-powered functionality **OR**
+- PDF report generation **OR**
+- Analytics dashboard / automation feature
+
+---
+
+## 🗂️ Backend Folder Structure
+backend/
+│── src/
+│ ├── controllers/
+│ ├── models/
+│ ├── routes/
+│ ├── middleware/
+│ ├── config/
+│ └── server.ts
+│── .env
+│── package.json
+
+
+---
+
+## 🎨 Frontend Folder Structure
+frontend/
+│── src/
+│ ├── components/
+│ ├── pages/
+│ ├── redux/
+│ ├── services/
+│ └── App.tsx
+│── package.json
+
+
+---
+
+## ⚙️ Setup & Run Instructions
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/ThamiduChamod/rainforest_royal_heritage_cabin_back_end.git
+2️⃣ Backend Setup
+bash
+Copy code
+cd backend
 npm install
-Configure Environment Variables: Create a .env file in the root directory and add your Backend URL:
-
-Code snippet
-
-VITE_API_BASE_URL=[https://rainforest-royal-heritage-cabin-back-end.onrender.com/api/v1](https://rainforest-royal-heritage-cabin-back-end.onrender.com/api/v1)
-Run the development server:
-
-Bash
-
 npm run dev
-The app will be available at http://localhost:5173.
+Create a .env file inside the backend folder:
 
-🏗️ Build for Production
-To build the project for production, run:
+env
+Copy code
+PORT=5000
+MONGO_URI=your_mongodb_atlas_connection_string
+JWT_SECRET=your_secret_key
+3️⃣ Frontend Setup
+bash
+Copy code
+cd frontend
+npm install
+npm run dev
+🌐 Deployed URLs
+Frontend:
+https://your-frontend.vercel.app
 
-Bash
+Backend API:
+https://your-backend.onrender.com
 
-npm run build
-The build artifacts will be stored in the dist/ directory.
+📸 Screenshots
+Include screenshots of:
 
-🤝 Contributing
-Contributions, issues, and feature requests are welcome! Feel free to check the issues page.
+Login / Register page
+
+Dashboard
+
+CRUD operations
+
+Responsive mobile view
+
+(Add screenshots to a /screenshots folder and reference them here)
+
+🧪 Sample API Endpoints
+http
+Copy code
+POST   /api/auth/login
+POST   /api/auth/register
+GET    /api/users
+POST   /api/bookings
+PUT    /api/bookings/:id
+DELETE /api/bookings/:id
+📊 Evaluation Criteria Alignment
+✅ MERN + TypeScript
+✅ JWT Authentication & Security
+✅ Redux State Management
+✅ Cloud Deployment
+✅ Advanced Feature
+✅ Proper Documentation
+✅ GitHub Version Control
+
+👨‍🎓 Author
+Thamidu Chamod
