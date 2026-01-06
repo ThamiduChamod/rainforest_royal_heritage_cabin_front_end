@@ -43,15 +43,11 @@ Follow these steps to run the project locally:
     cd rainforest_royal_heritage_cabin_front_end
 
 2. **Install dependencies:**
-
   ```Bash
-
     npm install
 
 3. **Configure Environment Variables: Create a .env file in the root directory and add your Backend URL:**
-
-  ```Code snippet
-
+   ```Code snippet
     VITE_API_BASE_URL=[https://rainforest-royal-heritage-cabin-back-end.onrender.com/api/v1](https://rainforest-royal-heritage-cabin-back-end.onrender.com/api/v1)
 
 4. **Run the development server:**
