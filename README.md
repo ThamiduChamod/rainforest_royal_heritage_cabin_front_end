@@ -133,11 +133,12 @@ frontend/
     MONGO_URI=your_mongodb_atlas_connection_string
     JWT_SECRET=your_secret_key
 ### 3️⃣ Frontend Setup
-  ```bash
-    
+  ```
+  bash 
     cd frontend
     npm install
-    npm run dev  ```
+    npm run dev  
+  ```
 
 ## 🌐 Deployed URLs
   Frontend:
