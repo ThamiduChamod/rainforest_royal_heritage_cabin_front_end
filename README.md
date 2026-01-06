@@ -115,64 +115,69 @@ frontend/
 
 ### 1️⃣ Clone the Repository
 
-```bash
-git clone https://github.com/ThamiduChamod/rainforest_royal_heritage_cabin_back_end.git
-2️⃣ Backend Setup
-bash
-Copy code
-cd backend
-npm install
-npm run dev
-Create a .env file inside the backend folder:
+```bash```
+  git clone https://github.com/ThamiduChamod/rainforest_royal_heritage_cabin_back_end.git
+### 2️⃣ Backend Setup
+ 
+```bash```
+  Copy code
+  cd backend
+  npm install
+  npm run dev 
 
-env
-Copy code
-PORT=5000
-MONGO_URI=your_mongodb_atlas_connection_string
-JWT_SECRET=your_secret_key
-3️⃣ Frontend Setup
-bash
-Copy code
-cd frontend
-npm install
-npm run dev
-🌐 Deployed URLs
-Frontend:
-https://your-frontend.vercel.app
+* Create a .env file inside the backend folder:
 
-Backend API:
-https://your-backend.onrender.com
+  ```env```
+    Copy code
+    PORT=5000
+    MONGO_URI=your_mongodb_atlas_connection_string
+    JWT_SECRET=your_secret_key
+### 3️⃣ Frontend Setup
+  ```bash```
+    Copy code
+    cd frontend
+    npm install
+    npm run dev 
 
-📸 Screenshots
+## 🌐 Deployed URLs
+  Frontend:
+    https://your-frontend.vercel.app
+
+  Backend API:
+    https://your-backend.onrender.com
+
+## 📸 Screenshots
 Include screenshots of:
 
-Login / Register page
+  Login / Register page
 
-Dashboard
+  Dashboard
 
-CRUD operations
+  CRUD operations
 
-Responsive mobile view
+  Responsive mobile view
 
-(Add screenshots to a /screenshots folder and reference them here)
 
-🧪 Sample API Endpoints
-http
-Copy code
-POST   /api/auth/login
-POST   /api/auth/register
-GET    /api/users
-POST   /api/bookings
-PUT    /api/bookings/:id
-DELETE /api/bookings/:id
-📊 Evaluation Criteria Alignment
-✅ MERN + TypeScript
-✅ JWT Authentication & Security
-✅ Redux State Management
-✅ Cloud Deployment
-✅ Advanced Feature
-✅ Proper Documentation
-✅ GitHub Version Control
 
-👨‍🎓 Author
-Thamidu Chamod
+## 🧪 Sample API Endpoints
+
+```  
+  POST   /api/auth/login
+  POST   /api/auth/register
+  GET    /api/users
+  POST   /api/bookings
+  PUT    /api/bookings/:id
+  DELETE /api/bookings/:id
+```
+## 📊 Evaluation Criteria Alignment
+   
+  ✅ MERN + TypeScript
+  ✅ JWT Authentication & Security
+  ✅ Redux State Management
+  ✅ Cloud Deployment
+  ✅ Advanced Feature
+  ✅ Proper Documentation
+  ✅ GitHub Version Control 
+
+## 👨‍🎓 Author
+ *** Thamidu Chamod ***
