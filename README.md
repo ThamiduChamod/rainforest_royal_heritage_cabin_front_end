@@ -1,73 +1,73 @@
-# React + TypeScript + Vite
+# 🏨 Rainforest Royal Heritage Cabin - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the official frontend for the **Rainforest Royal Heritage Cabin** management system. It provides an intuitive interface for users to browse rooms, manage bookings, and view cabin details, while admins can manage the entire system via a dedicated dashboard.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
+You can view the live application here:  
+**Frontend:** [https://rainforest-royal-heritage-cabin-fro-gules.vercel.app](https://rainforest-royal-heritage-cabin-fro-gules.vercel.app)  
+**Backend API:** [https://rainforest-royal-heritage-cabin-back-end.onrender.com](https://rainforest-royal-heritage-cabin-back-end.onrender.com)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
+- **User Authentication:** Secure login and registration with OTP verification.
+- **Room Browsing:** View detailed information, high-quality images, and pricing for various cabins.
+- **Booking System:** Easy room reservation process for guests.
+- **Admin Dashboard:** Full CRUD functionality to manage rooms, bookings, and user profiles.
+- **Responsive Design:** Fully optimized for mobile, tablet, and desktop views.
+- **Interactive UI:** Smooth transitions and modern components using Tailwind CSS.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Technologies Used
+- **Framework:** [React 19](https://react.dev/)
+- **Build Tool:** [Vite](https://vitejs.dev/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/) & [Material Tailwind](https://www.material-tailwind.com/)
+- **Routing:** [React Router DOM](https://reactrouter.com/)
+- **Icons:** [Lucide React](https://lucide.dev/)
+- **API Handling:** [Axios](https://axios-http.com/)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📦 Getting Started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Follow these steps to run the project locally:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1. **Clone the repository:**
+   ```bash
+    git clone [https://github.com/ThamiduChamod/rainforest_royal_heritage_cabin_front_end.git](https://github.com/ThamiduChamod/rainforest_royal_heritage_cabin_front_end.git)
+    
+    cd rainforest_royal_heritage_cabin_front_end
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+2. **Install dependencies:**
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+  ```Bash
+
+    npm install
+
+3. **Configure Environment Variables: Create a .env file in the root directory and add your Backend URL:**
+
+  ```Code snippet
+
+    VITE_API_BASE_URL=[https://rainforest-royal-heritage-cabin-back-end.onrender.com/api/v1](https://rainforest-royal-heritage-cabin-back-end.onrender.com/api/v1)
+
+4. **Run the development server:**
+
+  ```Bash
+
+    npm run dev
+    The app will be available at http://localhost:5173.
+
+## 🏗️ Build for Production
+To build the project for production, run:
+  ```Bash
+
+    npm run build
+
+  The build artifacts will be stored in the dist/ directory.
+
+## 🤝 Contributing
+Contributions, issues, and feature requests are welcome! Feel free to check the issues page.
