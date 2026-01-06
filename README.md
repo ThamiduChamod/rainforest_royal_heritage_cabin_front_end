@@ -38,32 +38,32 @@ Follow these steps to run the project locally:
 
 1. **Clone the repository:**
    ```bash
-    git clone [https://github.com/ThamiduChamod/rainforest_royal_heritage_cabin_front_end.git](https://github.com/ThamiduChamod/rainforest_royal_heritage_cabin_front_end.git)
-    
-    cd rainforest_royal_heritage_cabin_front_end
+   git clone [https://github.com/ThamiduChamod/rainforest_royal_heritage_cabin_front_end.git](https://github.com/ThamiduChamod/rainforest_royal_heritage_cabin_front_end.git)
+   cd rainforest_royal_heritage_cabin_front_end
+Install dependencies:
 
-2. **Install dependencies:**
-  ```Bash
-    npm install
+Bash
 
-3. **Configure Environment Variables: Create a .env file in the root directory and add your Backend URL:**
-   ```Code snippet
-    VITE_API_BASE_URL=[https://rainforest-royal-heritage-cabin-back-end.onrender.com/api/v1](https://rainforest-royal-heritage-cabin-back-end.onrender.com/api/v1)
+npm install
+Configure Environment Variables: Create a .env file in the root directory and add your Backend URL:
 
-4. **Run the development server:**
+Code snippet
 
-  ```Bash
+VITE_API_BASE_URL=[https://rainforest-royal-heritage-cabin-back-end.onrender.com/api/v1](https://rainforest-royal-heritage-cabin-back-end.onrender.com/api/v1)
+Run the development server:
 
-    npm run dev
-    The app will be available at http://localhost:5173.
+Bash
 
-## 🏗️ Build for Production
+npm run dev
+The app will be available at http://localhost:5173.
+
+🏗️ Build for Production
 To build the project for production, run:
-  ```Bash
 
-    npm run build
+Bash
 
-  The build artifacts will be stored in the dist/ directory.
+npm run build
+The build artifacts will be stored in the dist/ directory.
 
-## 🤝 Contributing
+🤝 Contributing
 Contributions, issues, and feature requests are welcome! Feel free to check the issues page.
