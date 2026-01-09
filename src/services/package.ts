@@ -25,6 +25,6 @@ export const updatePackage = async (data: any)=>{
 }
 
 export const deletePackage = async (id: string)=>{
-    const res = await api.post("/post/getAllPackage")
+    const res = await api.post("/post/deletePackage",{id})
     return res.data
 }
