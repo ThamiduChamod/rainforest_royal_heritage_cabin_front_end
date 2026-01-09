@@ -11,6 +11,7 @@ const Welcome = lazy(() => import("../pages/Welcome"))
 const Dashboard = lazy(() => import("../pages/Dashboard"))
 const LogIn = lazy(() => import("../pages/Login"))
 const About = lazy(() => import("../pages/About"))
+const AddAuthor = lazy(() => import("../components/AddAuthor"))
 
 type RequireAuthTypes = {children: ReactNode; roles?: string[]}
 
@@ -65,13 +66,22 @@ export default function Router() {
                 <Route path="/Gallery" element={<Gallery/>}/>
 
                 <Route
-              path="/Dashboard"
-              element={
-                <RequireAuth roles={["ADMIN", "AUTHOR" , "USER"]}>
-                  <Dashboard />
-                </RequireAuth>
-              }
-            />
+                    path="/Dashboard"
+                    element={
+                        <RequireAuth roles={["ADMIN", "AUTHOR" , "USER"]}>
+                            <Dashboard />
+                        </RequireAuth>
+                    }
+                />
+
+                <Route 
+                    path = "/addAuthor"
+                    element = {
+                        <RequireAuth roles={["ADMIN"]}>
+                            <AddAuthor />
+                        </RequireAuth>
+                    }
+                />
     
             </Routes>
             </Suspense>

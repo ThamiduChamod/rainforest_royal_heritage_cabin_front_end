@@ -119,12 +119,14 @@ export default function AdminPanel() {
                       }
                     }isAdmin/>) :
                       packagesData.map(p => <PackageCard key={p._id} pkg={{
+                        id:p._id,
                         status: p.status,
                         image: p.image,
                         name: p.name,
                         price: p.price,
                         tagline: p.tagline,
-                        features: p.features
+                        features: p.features,
+                        count:p.count
                       }}isAdmin />)
                     }
                     <div

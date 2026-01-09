@@ -45,9 +45,9 @@ const About = () => {
           </div>
 
           <p className="text-gray-600 text-lg leading-relaxed">
-            Sinharaja wanantharayata thawa thiyena Wana Arana Resort eka haduwe obata nisaala, 
-            shashreeka wanantharayaka niwahal bawa windinna nidahasa hada dennayi. 
-            Api wisheshayenma thirasara paribhoga krama (Sustainability) upayogee karamin me parisaraya rekabala gannawa.
+            Royal Heritage Cabin Hotel is a peaceful nature retreat offering a perfect blend of traditional charm and modern comfort. Surrounded by lush greenery, our cabins provide a relaxing escape where guests can unwind and reconnect with nature.
+
+Inspired by Sri Lanka’s rich heritage, we are committed to sustainable practices and warm hospitality, ensuring a comfortable and memorable stay for every guest.
           </p>
 
           {/* Features Grid */}

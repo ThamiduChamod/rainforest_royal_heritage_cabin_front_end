@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios"
 import { refreshTokens } from "./auth"
 const api = axios.create({
-    baseURL: "https://rainforest-royal-heritage-cabin-back-end.onrender.com/api/v1"
+    baseURL: "http://localhost:5000/api/v1"
 })
 
 const PUBLIC_ENDPOINTS = ["/auth/logIn","/auth/register","/auth/sendOTP","/auth/verifyOTP"]

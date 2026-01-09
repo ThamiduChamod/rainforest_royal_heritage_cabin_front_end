@@ -5,11 +5,12 @@ import { BedDouble, CheckCircle, ChevronRight, Gift, LayoutDashboard, PersonStan
 import RoomCard from '../components/RoomCard';
 import PackageCard from '../components/PackageCard';
 import AdminPanel from '../components/AdminPanel';
-import Profile from '../components/Profile';
 import { getAllRooms } from '../services/rooms';
 import { getAllPackage } from '../services/package';
 import BookingBar from '../components/BookingBar';
 import { myBooking, myPackageBooking } from '../services/booking';
+import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 type Room = {
   _id: string
@@ -40,6 +41,7 @@ type BookingTime = {
 };
 
 export default function Dashboard() {
+    const navigate = useNavigate()
     const [activeTab, setActiveTab] = useState("dashboard");
     const [roomsData, setRoomsData] = useState<Room[]>([])
     const [packagesData, setPackagesData] = useState<Package[]>([])
@@ -84,7 +86,7 @@ export default function Dashboard() {
 
     if (role == "AUTHOR") {
       menuItems.push(
-        { id: "admin", label: "Admin Panel", icon: PersonStanding }
+        { id: "author", label: "Author Panel", icon: Settings },
       )
       
     }
@@ -186,7 +188,7 @@ export default function Dashboard() {
   
   
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-gray-50 min-h-screen items-center justify-center ">
         <PageHeroSection img={heroimg} pageName='Admin Dashboard'  />
 
       {/* dashboard navigation */}
@@ -196,7 +198,14 @@ export default function Dashboard() {
           {menuItems.map(item => (
             <button
               key={item.id}
-              onClick={() => setActiveTab(item.id)}
+              onClick={() => {
+                // අයිඩිය "admin" නම් අලුත් පිටුවට Navigate කරන්න
+                if (item.id === "admin") {
+                  navigate("/addAuthor");
+                } else {
+                  setActiveTab(item.id);
+                }
+              }}
               className={`w-full flex items-center justify-between p-3.5 rounded-xl transition ${
                 activeTab === item.id
                   ? "bg-blue-600 text-white shadow-lg shadow-blue-900/20"
@@ -210,7 +219,9 @@ export default function Dashboard() {
 
               {activeTab === item.id && <ChevronRight size={16} />}
             </button>
+
           ))}
+          
         </nav>
 
 
@@ -279,7 +290,12 @@ export default function Dashboard() {
           {activeTab === "admin" &&(
             // <div className='grid-cols-2 m-5'>
               // <div className='w-100'>
-                <Profile/>
+              <div className="w-full items-center justify-items-center  backdrop-blur-xl p-10  border-white/5 shadow-2xl relative overflow-hidden h-full ">
+                  <h1 className='font-bold text-2xl'>Add Author</h1>
+                  <Link to={"/addAuthor"}>
+                  </Link>
+                  
+                </div>
               // </div>
               // <div >
 

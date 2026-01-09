@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import logo from "../assets/photos/logo.png"
 import {Link} from "react-router-dom"
 import { useNavigate } from "react-router-dom";
+import NavProfile from "./NavProfile";
+import { getProfile } from "../services/profile";
 // import logo from "../assets/photos/logo.png"; // Oyaage logo path eka hariyata thiyaganna
 
-export default function Header() {
+export default  function Header() {
   const navigate = useNavigate();
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,12 +15,17 @@ export default function Header() {
   useEffect(() => {
     const loggedIn = localStorage.getItem("isLoggedIn");
     setIsLoggedIn(loggedIn === "true");
+    
+     
   }, []);
+
+  
+
+  
 
   const menuItems = [
     { name: "Home", path: "/" },
     { name: "About", path: "/About" },
-    { name: "Rooms", path: "/Rooms" },
     { name: "Gallery", path: "/gallery" },
     { name: "Contact", path: "/contact" },
   ];
@@ -55,41 +62,31 @@ export default function Header() {
         ))}
       </div>
 
-      {/* DESKTOP BUTTONS - Updated button styles */}
-      <div className="hidden md:flex items-center gap-6">
-        {!isLoggedIn && (
-          <button
-            className="text-white/80 hover:text-white transition font-bold text-lg"
-            onClick={() => navigate("/LogIn")}
-          >
-            Login
-          </button>
-        )}
+      
 
+      
+         {/* DESKTOP BUTTONS - මෙන්න මේ කොටස සම්පූර්ණයෙන්ම Replace කරන්න */}
+<div className="hidden md:flex items-center gap-6">
+  {isLoggedIn ? (
+    /* 1. Login වී ඇත්නම් Profile එක පෙන්වන්න */
+    <NavProfile /> 
+  ) : (
+    /* 2. Login වී නැතිනම් පමණක් Login Button එක පෙන්වන්න */
+    <button
+      className="text-white/80 hover:text-white transition font-bold text-lg cursor-pointer"
+      onClick={() => navigate("/LogIn")}
+    >
+      Login
+    </button>
+  )}
 
-        <button className="px-7 py-2.5 rounded-full bg-emerald-600 text-white text-sm font-bold
-          hover:bg-emerald-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all active:scale-95"
-          onClick={() => navigate("/Dashboard")}  
-        >
-          Book Now
-        </button>
-      </div>
-
-      {/* MOBILE MENU BUTTON */}
-      <button
-        className="md:hidden text-white p-2"
-        onClick={() => setMenuOpen(!menuOpen)}
-      >
-        {menuOpen ? (
-          <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M18 6 6 18M6 6l12 12" />
-          </svg>
-        ) : (
-          <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M3 6h18M3 12h18M3 18h18" />
-          </svg>
-        )}
-      </button>
+  <button 
+    className="px-7 py-2.5 rounded-full bg-emerald-600 text-white text-sm font-bold hover:bg-emerald-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all active:scale-95 cursor-pointer"
+    onClick={() => navigate("/Dashboard")}
+  >
+    Book Now
+  </button>
+</div>
 
       {/* MOBILE MENU - Updated with Forest gradients */}
       <div
@@ -128,15 +125,7 @@ export default function Header() {
             ))}
           </div>
 
-          {/* BUTTONS */}
-          <div className="mt-12 flex flex-col gap-4 bg-black">
-            <button className="py-4 bg-emerald-600 text-white font-bold rounded-2xl hover:bg-emerald-500 transition shadow-lg shadow-emerald-900/20">
-              Book Now
-            </button>
-            <button className="py-4 border border-white/20 rounded-2xl text-white/70 hover:bg-white/5 transition">
-              Login
-            </button>
-          </div>
+          
         </div>
       </div>
     </nav>

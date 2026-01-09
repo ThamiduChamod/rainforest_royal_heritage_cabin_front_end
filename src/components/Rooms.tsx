@@ -1,42 +1,44 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { getAllRooms } from '../services/rooms';
+import RoomCard from './RoomCard';
+
+// Room type එක නිවැරදිව නිර්වචනය කිරීම
+type Room = {
+  _id: string;
+  type: string;
+  price: string;
+  status: string;
+  pax: number;
+  bedType: string;
+  amenities: string[]; // amenities සාමාන්‍gයෙන් string array එකකි
+  image: string;
+  count: number;
+};
 
 const Rooms = () => {
-  const scrollRef = useRef(null);
+  // 1. scrollRef සඳහා HTMLDivElement type එක ලබා දීම
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [roomsData, setRoomsData] = useState<Room[]>([]);
 
-//   const scroll = (scrollOffset) => {
-//     scrollRef.current.scrollBy({ left: scrollOffset, behavior: 'smooth' });
-//   };
+  // 2. scroll function එක සක්‍රිය කිරීම
+  const scroll = (scrollOffset: number) => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: scrollOffset, behavior: 'smooth' });
+    }
+  };
 
-  const rooms = [
-    {
-      id: 1,
-      name: "Deluxe Ocean View",
-      price: "$150",
-      features: ["Free WiFi", "AC", "King Bed"],
-      image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&q=80&w=500",
-    },
-    {
-      id: 2,
-      name: "Luxury Suite",
-      price: "$250",
-      features: ["Private Pool", "Mini Bar", "Breakfast"],
-      image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&q=80&w=500",
-    },
-    {
-      id: 3,
-      name: "Family Superior",
-      price: "$200",
-      features: ["2 Queen Beds", "Garden View", "Kitchen"],
-      image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&q=80&w=500",
-    },
-    {
-      id: 4,
-      name: "Single Standard",
-      price: "$80",
-      features: ["Single Bed", "Work Desk", "Fast WiFi"],
-      image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&q=80&w=500",
-    },
-  ];
+  useEffect(() => {
+    fetchRoomData();
+  }, []);
+
+  const fetchRoomData = async () => {
+    try {
+      const res = await getAllRooms();
+      setRoomsData(res.data);
+    } catch (error) {
+      console.error("Error fetching rooms:", error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-neutral-950 py-16 px-6">
@@ -51,16 +53,16 @@ const Rooms = () => {
         </div>
 
         {/* Navigation Buttons */}
-        <div className="absolute top-[60%] -translate-y-1/2 w-full flex justify-between z-10 pointer-events-none">
+        <div className="absolute top-[60%] -translate-y-1/2 w-full flex justify-between z-10 pointer-events-none px-2">
           <button 
             onClick={() => scroll(-350)}
-            className="p-4 rounded-full bg-black/50 hover:bg-black text-white backdrop-blur-sm transition-all pointer-events-auto -ml-4 border border-white/10"
+            className="p-4 rounded-full bg-black/50 hover:bg-black text-white backdrop-blur-sm transition-all pointer-events-auto border border-white/10"
           >
             ❮
           </button>
           <button 
             onClick={() => scroll(350)}
-            className="p-4 rounded-full bg-black/50 hover:bg-black text-white backdrop-blur-sm transition-all pointer-events-auto -mr-4 border border-white/10"
+            className="p-4 rounded-full bg-black/50 hover:bg-black text-white backdrop-blur-sm transition-all pointer-events-auto border border-white/10"
           >
             ❯
           </button>
@@ -69,55 +71,39 @@ const Rooms = () => {
         {/* Rooms Card Container */}
         <div 
           ref={scrollRef}
-          className="flex overflow-x-auto gap-8 scrollbar-hide scroll-smooth py-4"
+          className="flex overflow-x-auto gap-8 scroll-smooth py-4 no-scrollbar"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {rooms.map((room) => (
-            <div 
-              key={room.id}
-              className="min-w-[320px] md:min-w-[380px] bg-neutral-900 rounded-3xl overflow-hidden shadow-2xl border border-white/5 group hover:border-amber-500/50 transition-all duration-500"
-            >
-              {/* Image Section */}
-              <div className="relative h-60 overflow-hidden">
-                <img 
-                  src={room.image} 
-                  alt={room.name} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute top-4 right-4 bg-amber-500 text-black font-bold px-3 py-1 rounded-lg">
-                  {room.price} <span className="text-xs font-normal">/ Night</span>
-                </div>
-              </div>
-
-              {/* Content Section */}
-              <div className="p-6">
-                <h3 className="text-2xl font-semibold text-white mb-3 group-hover:text-amber-500 transition-colors">
-                  {room.name}
-                </h3>
-                
-                {/* Features Tags */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {room.features.map((feature, index) => (
-                    <span key={index} className="text-[10px] uppercase tracking-widest text-neutral-400 bg-white/5 px-2 py-1 rounded">
-                      {feature}
-                    </span>
-                  ))}
-                </div>
-
-                <button className="w-full py-3 rounded-xl bg-transparent border border-white/20 text-white hover:bg-white hover:text-black transition-all font-medium">
-                  Book This Room
-                </button>
-              </div>
+          {roomsData.map((r) => (
+            <div key={r._id} className="flex-shrink-0 w-[350px]">
+              <RoomCard 
+                room={{
+                  id: r._id,
+                  status: r.status,
+                  image: r.image,
+                  type: r.type,
+                  price: r.price,
+                  pax: r.pax,
+                  bedType: r.bedType,
+                  amenities: r.amenities,
+                  count: r.count
+                }} 
+              />
             </div>
           ))}
         </div>
       </div>
 
-      {/* <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style> */}
+      {/* Tailwind මගින් scrollbar එක සැඟවීමට අවශ්‍ය CSS */}
+      <style>{`
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+`}</style>
     </div>
   );
 };

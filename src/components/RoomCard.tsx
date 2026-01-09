@@ -84,7 +84,7 @@ const handelBooking = async () =>{
   };
 
   return (
-    <div className="relative group bg-white rounded-2xl shadow border overflow-hidden m-8">
+    <div className="relative group bg-white rounded-2xl shadow border overflow-hidden ">
       <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center shadow-sm ${
               room.status === 'Available' ? 'bg-emerald-500 text-white' : 'bg-rose-500 text-white'
             }`}>
