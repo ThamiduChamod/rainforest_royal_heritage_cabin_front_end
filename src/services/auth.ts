@@ -37,3 +37,8 @@ export const getMyDetails = async () => {
   const res = await api.get("/auth/me")
   return res.data
 }
+
+export const sendMail = async (data:any) => {
+    const res = await api.post("/auth/sendEmail", data)
+  return res.data
+}

@@ -7,7 +7,7 @@ const Footer = () => {
         
         {/* Company Info */}
         <div className="space-y-4">
-          <h2 className="text-2xl font-serif font-bold text-amber-500">LUXURY STAY</h2>
+          <h2 className="text-2xl font-serif font-bold text-amber-500">Rain Forest Royal Heritage Cabin</h2>
           <p className="text-neutral-400 text-sm leading-relaxed">
             Experience the ultimate comfort and hospitality. Amche rooms tumhala ek prashant ani shant anubhav denyasathi design kele ahet.
           </p>
@@ -18,9 +18,9 @@ const Footer = () => {
           <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
           <ul className="space-y-4 text-neutral-400 text-sm">
             <li><a href="#" className="hover:text-amber-500 transition-colors">Home</a></li>
-            <li><a href="#" className="hover:text-amber-500 transition-colors">Our Rooms</a></li>
-            <li><a href="#" className="hover:text-amber-500 transition-colors">Services</a></li>
-            <li><a href="#" className="hover:text-amber-500 transition-colors">Contact Us</a></li>
+            <li><a href="http://localhost:5173/About" className="hover:text-amber-500 transition-colors">About</a></li>
+            <li><a href="http://localhost:5173/contact" className="hover:text-amber-500 transition-colors">Book</a></li>
+            <li><a href="http://localhost:5173/Dashboard" className="hover:text-amber-500 transition-colors">Contact Us</a></li>
           </ul>
         </div>
 

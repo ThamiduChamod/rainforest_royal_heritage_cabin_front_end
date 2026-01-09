@@ -3,6 +3,7 @@ import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import Footer from '../components/Footer';
 import Header from '../components/NavBar';
 import heroImage from '../assets/photos/image2.jpeg'
+import { sendMail } from '../services/auth';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -12,10 +13,24 @@ const ContactUs = () => {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   console.log('Form Submitted:', formData);
-  alert('Your message has been sent successfully. Thank you!');
+  
+  try{
+    const res = await sendMail(formData)
+
+    if(res.isSend){
+      alert('Your message has been sent successfully. Thank you!');
+    }else{
+      alert('Your message has been sent fail. Thank you!');
+    }
+
+  } catch(err){
+    alert('Your message has been sent fail. Thank you!');
+  } 
+  
+  
 };
 
   return (
