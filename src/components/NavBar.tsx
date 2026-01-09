@@ -65,13 +65,12 @@ export default  function Header() {
       
 
       
-         {/* DESKTOP BUTTONS - මෙන්න මේ කොටස සම්පූර්ණයෙන්ම Replace කරන්න */}
+         
 <div className="hidden md:flex items-center gap-6">
   {isLoggedIn ? (
-    /* 1. Login වී ඇත්නම් Profile එක පෙන්වන්න */
     <NavProfile /> 
   ) : (
-    /* 2. Login වී නැතිනම් පමණක් Login Button එක පෙන්වන්න */
+    
     <button
       className="text-white/80 hover:text-white transition font-bold text-lg cursor-pointer"
       onClick={() => navigate("/LogIn")}
@@ -88,7 +87,7 @@ export default  function Header() {
   </button>
 </div>
 
-      {/* MOBILE MENU - Updated with Forest gradients */}
+      
       <div
         className={`fixed inset-0 z-50 md:hidden transition-all duration-500
         ${menuOpen ? "bg-black backdrop-blur-xl opacity-100 visible" : "opacity-0 invisible"}`}
@@ -111,19 +110,7 @@ export default  function Header() {
             </button>
           </div>
 
-          {/* LINKS */}
-          <div className="flex flex-col gap-4 text-white">
-            {["Home", "Rooms", "Amenities", "Gallery", "Contact"].map((item) => (
-              <a
-                key={item}
-                href="#"
-                className="py-4 px-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-emerald-600/20 transition-all text-lg font-light"
-                onClick={() => setMenuOpen(false)}
-              >
-                {item}
-              </a>
-            ))}
-          </div>
+         
 
           
         </div>

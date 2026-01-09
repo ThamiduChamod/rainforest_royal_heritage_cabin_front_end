@@ -1,3 +1,4 @@
+import { data } from "react-router-dom"
 import api from "./api"
 
 
@@ -17,5 +18,14 @@ export const getAllRooms = async () =>{
 
 export const deleteRoom = async (id: string)=>{
     const res = await api.post("/Post/roomDelete",{id})
+    return res.data
+}
+
+export const updateRoom = async ( data: any) =>{
+    const res = await api.post("/Post/updateRoom", data,{
+        headers: {
+        "Content-Type": "multipart/form-data"
+    }
+    })
     return res.data
 }

@@ -73,12 +73,12 @@ Inspired by Sri Lanka’s rich heritage, we are committed to sustainable practic
             </div>
           </div>
 
-          {/* CTA Button */}
-          <div className="pt-6">
+          
+          {/* <div className="pt-6">
             <button className="px-8 py-3 bg-emerald-900 text-white rounded-lg font-medium hover:bg-emerald-800 transition-colors shadow-lg active:scale-95">
               Read More About Us
             </button>
-          </div>
+          </div> */}
         </div>
 
       </div>

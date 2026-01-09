@@ -1,6 +1,6 @@
 import { UserPlus, Mail, KeyRound, ShieldCheck, UserCheck, ArrowLeft } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ආපසු යාමට අවශ්‍ය නම්
+import { useNavigate } from "react-router-dom"; 
 import { sendOTP, verifyOTP } from "../services/auth";
 import { authorRegister } from "../services/admin";
 
@@ -56,7 +56,7 @@ export default function AddAuthor() {
     try {
       const res = await authorRegister(form);
       alert(res.message || "Author registered successfully!");
-      // සාර්ථක වූ පසු Dashboard එකට යන්න
+      
       navigate("/Dashboard");
     } catch (error) {
       alert("Registration failed");
